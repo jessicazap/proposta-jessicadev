@@ -59,7 +59,7 @@
   --border-brand:rgba(199,255,43,.65); --border-brand-strong:#C7FF2B;
   --sans:'Sora', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --mono:'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-  --shell:1240px; --gutter:clamp(20px, 4.4vw, 52px); --rail:152px; --section-y:clamp(76px, 9.5vw, 148px);
+  --shell:1240px; --gutter:clamp(24px, 4.4vw, 52px); --rail:152px; --section-y:clamp(76px, 9.5vw, 148px);
   --ease:cubic-bezier(.22,.61,.36,1);
   --cut:14px; --cut-sm:9px;
 }
@@ -160,6 +160,7 @@ ul{margin:0; padding:0; list-style:none;}
 @media (max-width:980px){ .cover__type{max-width:100%;} }
 .cover__eyebrow{margin-bottom:clamp(20px,3vw,34px);}
 .cover h1{font-size:clamp(58px, 11.2vw, 118px); line-height:.88; font-weight:800; letter-spacing:-.042em; margin-left:-.055em;}
+@media (max-width:360px){ .cover h1{font-size:15.5vw; margin-left:-.03em;} }
 .cover h1 .grad{background-image:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; filter:drop-shadow(0 0 14px rgba(154,255,90,.14));}
 .cover__sub{margin-top:clamp(20px,2.6vw,30px); font-size:clamp(17px,1.5vw,20px); font-weight:300; color:var(--ink-2); max-width:24ch; line-height:1.5;}
 .cover__rule{margin-top:clamp(30px,4vw,46px); height:1px; width:100%; background:linear-gradient(to right, var(--line-2), transparent 55%);}
@@ -176,10 +177,13 @@ ul{margin:0; padding:0; list-style:none;}
 @media (max-width:760px){ .colophon{grid-template-columns:1fr;} .colophon > div + div{padding-left:0;} .colophon > div{padding:18px 0;} }
 @media (max-width:980px){
   .cover{min-height:auto; padding-top:104px;}
-  .cover__photo{position:relative; width:100vw; margin-left:calc(50% - 50vw); height:clamp(240px,52vw,380px); -webkit-mask-image:none; mask-image:none; margin-top:34px;}
+  /* a foto vira elemento normal do fluxo aqui (era position:absolute no desktop) —
+     sem isso ela herdava a ordem do HTML e aparecia ANTES do título, empurrando
+     tudo pra baixo. order garante texto primeiro, foto depois, sempre. */
+  .cover__body{order:1; padding-bottom:0;}
+  .cover__photo{order:2; position:relative; width:100vw; margin-left:calc(50% - 50vw); height:clamp(240px,52vw,380px); -webkit-mask-image:none; mask-image:none; margin-top:34px;}
   .cover__photo img{object-position:56% 50%; -webkit-mask-image:linear-gradient(to bottom, #000 58%, transparent 100%); mask-image:linear-gradient(to bottom, #000 58%, transparent 100%);}
   .cover__contact{display:none;}
-  .cover__body{padding-bottom:0;}
 }
 @media (max-width:520px){ .cover{padding-top:84px;} }
 
