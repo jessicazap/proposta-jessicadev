@@ -144,23 +144,32 @@ ul{margin:0; padding:0; list-style:none;}
 @media (max-width:400px){ .topbar .btn--sm{--btn-px:12px; font-size:10px; gap:6px;} }
 @media (max-width:520px){ .btn--sm{min-height:40px;} }
 
-.cover{position:relative; min-height:100svh; display:flex; flex-direction:column; justify-content:flex-end; padding-top:132px; overflow:hidden;}
-.cover__grid{position:absolute; inset:0; z-index:0; pointer-events:none; opacity:.5;
+/* CAPA — reconstruída com CSS Grid (empilhamento por grid-area em vez de
+   position:absolute + z-index por camada): cada filho direto de .cover ocupa
+   a mesma célula de grid e por padrão é esticado (stretch) pra preencher a
+   seção inteira, sem depender de "inset:0" + contexto de posicionamento —
+   é essa cadeia frágil que vinha quebrando no mobile.
+   min-height leva fallback pra 100vh antes de 100svh: em navegador/webview
+   sem suporte a svh a declaração é ignorada inteira (não vira 100vh sozinho),
+   a seção perde a altura mínima e a foto de fundo colapsa — por isso o valor
+   simples vem primeiro e o mais novo por cima, vencendo quando suportado. */
+.cover{position:relative; isolation:isolate; display:grid; min-height:100vh; min-height:100svh; padding-top:132px; overflow:hidden;}
+.cover > *{grid-area:1 / 1;}
+.cover__grid{align-self:stretch; justify-self:stretch; pointer-events:none; opacity:.5;
   background-image:linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
   background-size:64px 64px;
   -webkit-mask-image:radial-gradient(62% 60% at 78% 38%, #000 0%, transparent 72%);
   mask-image:radial-gradient(62% 60% at 78% 38%, #000 0%, transparent 72%);}
-.cover__ambient{position:absolute; inset:0; z-index:0; pointer-events:none; background:radial-gradient(60% 48% at 78% 42%, rgba(106,255,106,.13), transparent 62%), radial-gradient(38% 34% at 96% 30%, rgba(199,255,43,.09), transparent 70%), radial-gradient(70% 55% at 20% 84%, rgba(106,255,106,.045), transparent 68%);}
-.cover__photo{position:absolute; z-index:1; pointer-events:none; top:0; right:0; width:57%; height:100%; -webkit-mask-image:linear-gradient(to right, transparent 0%, rgba(0,0,0,.5) 11%, #000 30%); mask-image:linear-gradient(to right, transparent 0%, rgba(0,0,0,.5) 11%, #000 30%);}
+.cover__ambient{align-self:stretch; justify-self:stretch; pointer-events:none; background:radial-gradient(60% 48% at 78% 42%, rgba(106,255,106,.13), transparent 62%), radial-gradient(38% 34% at 96% 30%, rgba(199,255,43,.09), transparent 70%), radial-gradient(70% 55% at 20% 84%, rgba(106,255,106,.045), transparent 68%);}
+.cover__photo{position:relative; align-self:stretch; justify-self:end; pointer-events:none; width:57%; -webkit-mask-image:linear-gradient(to right, transparent 0%, rgba(0,0,0,.5) 11%, #000 30%); mask-image:linear-gradient(to right, transparent 0%, rgba(0,0,0,.5) 11%, #000 30%);}
 .cover__photo::before{content:""; position:absolute; z-index:2; top:22px; right:22px; width:34px; height:34px; border-top:1.5px solid rgba(199,255,43,.8); border-right:1.5px solid rgba(199,255,43,.8); clip-path:polygon(40% 0,100% 0,100% 100%); opacity:.85;}
 .cover__photo::after{content:""; position:absolute; z-index:2; bottom:14%; left:6%; width:26px; height:26px; border-bottom:1.5px solid rgba(106,255,106,.6); border-left:1.5px solid rgba(106,255,106,.6); clip-path:polygon(0 0,0 100%,60% 100%); opacity:.7;}
 .cover__photo img{width:100%; height:100%; object-fit:cover; object-position:52% 46%; -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 14%, #000 62%, transparent 97%); mask-image:linear-gradient(to bottom, transparent 0%, #000 14%, #000 62%, transparent 97%);}
-.cover__contact{position:absolute; z-index:1; pointer-events:none; right:-4%; bottom:-6%; width:64%; height:34%; background:radial-gradient(ellipse at center, rgba(0,0,0,.9), transparent 66%);}
-.cover__scrim{position:absolute; inset:0; z-index:2; pointer-events:none; display:none;}
+.cover__contact{align-self:end; justify-self:end; pointer-events:none; width:64%; height:34%; margin:0 -4% -6% 0; background:radial-gradient(ellipse at center, rgba(0,0,0,.9), transparent 66%);}
+.cover__scrim{align-self:stretch; justify-self:stretch; pointer-events:none; display:none;}
 @media (max-width:980px){ .cover__grid{display:none;} }
-.cover__body{position:relative; z-index:3; padding-bottom:clamp(34px,5vw,58px);}
+.cover__body{align-self:end; position:relative; z-index:3; padding-bottom:clamp(34px,5vw,58px);}
 .cover__type{max-width:min(640px, 56%);}
-@media (max-width:640px){ .cover__type, .colophon{padding-inline:4px;} }
 @media (max-width:980px){ .cover__type{max-width:100%;} }
 .cover__eyebrow{margin-bottom:clamp(20px,3vw,34px);}
 .cover h1{font-size:clamp(58px, 11.2vw, 118px); line-height:.88; font-weight:800; letter-spacing:-.042em; margin-left:-.055em;}
@@ -181,14 +190,12 @@ ul{margin:0; padding:0; list-style:none;}
 @media (max-width:760px){ .colophon{grid-template-columns:1fr;} .colophon > div + div{padding-left:0;} .colophon > div{padding:18px 0;} }
 @media (max-width:980px){
   .cover{padding-top:104px;}
-  /* a foto vira fundo de verdade da capa (fica absoluta, preenchendo a seção
-     inteira atrás do texto) em vez de virar um bloco empilhado embaixo —
-     é exatamente isso que estava errado antes. */
-  .cover__photo{position:absolute; inset:0; width:100%; height:100%; margin:0;
-    -webkit-mask-image:none; mask-image:none;}
+  /* a foto vira fundo de verdade da capa: esticada (justify-self:stretch) pra
+     ocupar a célula de grid inteira atrás do texto, nunca um bloco no fluxo
+     empilhado embaixo — é exatamente isso que estava quebrando antes. */
+  .cover__photo{justify-self:stretch; width:100%; -webkit-mask-image:none; mask-image:none;}
   .cover__photo::before, .cover__photo::after{display:none;} /* acentos de canto eram pra moldura de card, não fazem sentido em fundo full-bleed */
-  .cover__photo img{width:100%; height:100%; object-fit:cover; object-position:64% 38%;
-    -webkit-mask-image:none; mask-image:none;}
+  .cover__photo img{object-position:64% 38%; -webkit-mask-image:none; mask-image:none;}
   .cover__scrim{display:block; background:
     linear-gradient(180deg, rgba(10,10,10,.32) 0%, rgba(10,10,10,.5) 38%, rgba(10,10,10,.88) 82%, var(--bg) 100%);}
   .cover__contact{display:none;}
