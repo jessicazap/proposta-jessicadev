@@ -40,9 +40,7 @@ Install Command  : (vazio)
 
 Acesse **`https://proposta-jessicadev.vercel.app/admin`**.
 
-Duas camadas de senha, nessa ordem:
-1. **Autenticação do navegador (HTTP Basic)** — a própria página nem carrega sem isso. Usuário: `jessica` · Senha: o valor de `ADMIN_SECRET` na Vercel. (`/admin` é protegido no edge por `middleware.js`, antes de qualquer HTML ser entregue.)
-2. **Senha do painel** — ao carregar, um segundo prompt pede a mesma senha (`ADMIN_SECRET`) — é o que autoriza o "Salvar e publicar" a gravar no GitHub. Fica salva no navegador depois da primeira vez.
+Ao carregar, um prompt pede a senha (o valor de `ADMIN_SECRET` cadastrado na Vercel) — fica salva nesse navegador depois da primeira vez. Essa senha é o que autoriza o "Salvar e publicar" a gravar no GitHub — sem ela, o `/api/save` recusa a gravação no servidor (a segurança de verdade está lá, não no front). Testamos e removemos de propósito uma camada extra de autenticação do navegador (HTTP Basic) que tentamos antes — ela causava loop de "credencial em cache" em alguns navegadores. Um ponto de entrada só, mais simples e mais confiável.
 
 O que dá pra fazer:
 - **Texto** — clicar em qualquer texto e editar direto (`contenteditable`); botões A−/A+ na barra inferior ajustam o tamanho do texto selecionado.
