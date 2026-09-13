@@ -36,11 +36,19 @@ Install Command  : (vazio)
 | `vercel.json` | Headers de cache e segurança |
 | `package.json` | Só fixa a versão do Node (20.x) pra rodar `api/save.js` |
 
-## Painel de edição (2026-09-13)
+## Painel de edição (atualizado 2026-09-13)
 
-Acesse `https://proposta-jessicadev.vercel.app/?admin=jessicadev`. Na primeira vez, o navegador pede a senha — é a mesma cadastrada em **Vercel → Settings → Environment Variables → `ADMIN_SECRET`**. Depois de digitada uma vez, fica salva nesse navegador.
+Acesse **`https://proposta-jessicadev.vercel.app/admin`**.
 
-O que dá pra fazer: clicar em qualquer texto e editar direto (`contenteditable`), aumentar/diminuir o tamanho do texto selecionado, trocar ou redimensionar qualquer imagem, mover/adicionar/remover itens de diagnóstico, escopo, processo e planos, e mover seções inteiras — a numeração se ajusta sozinha.
+Duas camadas de senha, nessa ordem:
+1. **Autenticação do navegador (HTTP Basic)** — a própria página nem carrega sem isso. Usuário: `jessica` · Senha: o valor de `ADMIN_SECRET` na Vercel. (`/admin` é protegido no edge por `middleware.js`, antes de qualquer HTML ser entregue.)
+2. **Senha do painel** — ao carregar, um segundo prompt pede a mesma senha (`ADMIN_SECRET`) — é o que autoriza o "Salvar e publicar" a gravar no GitHub. Fica salva no navegador depois da primeira vez.
+
+O que dá pra fazer:
+- **Texto** — clicar em qualquer texto e editar direto (`contenteditable`); botões A−/A+ na barra inferior ajustam o tamanho do texto selecionado.
+- **Imagens** — passar o mouse mostra os controles de aumentar/diminuir (proporção travada — a logo não esticha mais) e trocar por upload. Na foto de capa, os controles ajustam a largura da área que ela ocupa na composição (ela usa `object-fit:cover`, então "redimensionar a imagem" não se aplica do mesmo jeito).
+- **Espaçamento** — o botão "↕" ao lado das setas de cada seção abre um slider pra ajustar o respiro vertical dela; nas grades (planos, diagnóstico, escopo, processo) tem um "↕" próprio pra ajustar o espaço entre os itens.
+- **Blocos** — mover/adicionar/remover itens de diagnóstico, escopo, processo e planos, e mover seções inteiras — a numeração (01, 02...) se ajusta sozinha.
 
 **"Salvar e publicar" grava direto no GitHub** (via `api/save.js`, que usa a variável `GITHUB_TOKEN`) — o commit sozinho dispara um novo deploy na Vercel, e o site atualiza em ~30-60 segundos. Ninguém que abrir o link sem `?admin=jessicadev` vê qualquer parte desse sistema.
 
