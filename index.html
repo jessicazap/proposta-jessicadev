@@ -154,6 +154,7 @@ ul{margin:0; padding:0; list-style:none;}
 .cover__photo::after{content:""; position:absolute; z-index:2; bottom:14%; left:6%; width:26px; height:26px; border-bottom:1.5px solid rgba(106,255,106,.6); border-left:1.5px solid rgba(106,255,106,.6); clip-path:polygon(0 0,0 100%,60% 100%); opacity:.7;}
 .cover__photo img{width:100%; height:100%; object-fit:cover; object-position:52% 46%; -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 14%, #000 62%, transparent 97%); mask-image:linear-gradient(to bottom, transparent 0%, #000 14%, #000 62%, transparent 97%);}
 .cover__contact{position:absolute; z-index:1; pointer-events:none; right:-4%; bottom:-6%; width:64%; height:34%; background:radial-gradient(ellipse at center, rgba(0,0,0,.9), transparent 66%);}
+.cover__scrim{position:absolute; inset:0; z-index:2; pointer-events:none; display:none;}
 @media (max-width:980px){ .cover__grid{display:none;} }
 .cover__body{position:relative; z-index:3; padding-bottom:clamp(34px,5vw,58px);}
 .cover__type{max-width:min(640px, 56%);}
@@ -176,14 +177,19 @@ ul{margin:0; padding:0; list-style:none;}
 .colophon dd{margin:0; font-size:15px; font-weight:500; color:var(--ink); line-height:1.35;}
 @media (max-width:760px){ .colophon{grid-template-columns:1fr;} .colophon > div + div{padding-left:0;} .colophon > div{padding:18px 0;} }
 @media (max-width:980px){
-  .cover{min-height:auto; padding-top:104px;}
-  /* a foto vira elemento normal do fluxo aqui (era position:absolute no desktop) —
-     sem isso ela herdava a ordem do HTML e aparecia ANTES do título, empurrando
-     tudo pra baixo. order garante texto primeiro, foto depois, sempre. */
-  .cover__body{order:1; padding-bottom:0;}
-  .cover__photo{order:2; position:relative; width:100vw; margin-left:calc(50% - 50vw); height:clamp(240px,52vw,380px); -webkit-mask-image:none; mask-image:none; margin-top:34px;}
-  .cover__photo img{object-position:56% 50%; -webkit-mask-image:linear-gradient(to bottom, #000 58%, transparent 100%); mask-image:linear-gradient(to bottom, #000 58%, transparent 100%);}
+  .cover{padding-top:104px;}
+  /* a foto vira fundo de verdade da capa (fica absoluta, preenchendo a seção
+     inteira atrás do texto) em vez de virar um bloco empilhado embaixo —
+     é exatamente isso que estava errado antes. */
+  .cover__photo{position:absolute; inset:0; width:100%; height:100%; margin:0;
+    -webkit-mask-image:none; mask-image:none;}
+  .cover__photo::before, .cover__photo::after{display:none;} /* acentos de canto eram pra moldura de card, não fazem sentido em fundo full-bleed */
+  .cover__photo img{width:100%; height:100%; object-fit:cover; object-position:58% 30%;
+    -webkit-mask-image:none; mask-image:none;}
+  .cover__scrim{display:block; background:
+    linear-gradient(180deg, rgba(10,10,10,.32) 0%, rgba(10,10,10,.5) 38%, rgba(10,10,10,.88) 82%, var(--bg) 100%);}
   .cover__contact{display:none;}
+  .cover__body{padding-bottom:clamp(28px,7vw,48px);}
 }
 @media (max-width:520px){ .cover{padding-top:84px;} }
 
@@ -427,6 +433,7 @@ a.btn:hover .adm-link-ctrl, .adm-link-ctrl:focus-visible{opacity:1;}
   <div class="cover__ambient" aria-hidden="true"></div>
   <div class="cover__contact" aria-hidden="true"></div>
   <div class="cover__photo rv d5" aria-hidden="true"><img src="laptop.jpg" srcset="laptop-900.jpg 900w, laptop.jpg 1536w" sizes="(max-width:980px) 100vw, 57vw" width="1536" height="1024" alt="" fetchpriority="high" decoding="async"></div>
+  <div class="cover__scrim" aria-hidden="true"></div>
   <div class="cover__body"><div class="shell">
     <div class="cover__type">
       <div class="label label--tick cover__eyebrow rv d1">Proposta</div>
