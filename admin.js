@@ -1,14 +1,13 @@
 /* ══════════════════════════════════════════════════════════════
-   Painel de edição da proposta jessicadev
-   Ativa só com ?admin=jessicadev na URL. "Salvar e publicar" grava
-   direto no GitHub via /api/save — o próprio commit dispara o
-   redeploy automático da Vercel (leva uns 30-60s pra ficar no ar).
-   A proteção de verdade é no servidor (/api/save exige a senha);
-   isso aqui é só a experiência de edição.
+   Painel de edição da proposta jessicadev — acesso em /admin
+   (protegido por HTTP Basic no edge, ver middleware.js).
+   "Salvar e publicar" grava direto no GitHub via /api/save — o
+   próprio commit dispara o redeploy automático da Vercel (~30-60s).
+   A proteção de escrita de verdade é no servidor (/api/save exige
+   o ADMIN_SECRET); isso aqui é só a experiência de edição.
    ══════════════════════════════════════════════════════════════ */
 (function(){
-  var isAdmin = false;
-  try { isAdmin = new URLSearchParams(location.search).get('admin') === 'jessicadev'; } catch(e){}
+  var isAdmin = (location.pathname === '/admin' || location.pathname === '/admin/' || location.pathname === '/admin.html');
   if (!isAdmin) return;
 
   var SECRET_KEY = 'jd_admin_secret';
@@ -18,12 +17,13 @@
     var s = null;
     try { s = localStorage.getItem(SECRET_KEY); } catch(e){}
     if (!s || forcePrompt){
-      s = window.prompt('Senha do painel de edição (a mesma cadastrada na Vercel em ADMIN_SECRET):', '');
+      s = window.prompt('Senha do painel (a mesma cadastrada em ADMIN_SECRET na Vercel):', '');
       if (s) { try { localStorage.setItem(SECRET_KEY, s); } catch(e){} }
     }
     return s || '';
   }
 
+  /* ═══ TEXTO ═══ */
   function isInlineTag(tag){ return ['SPAN','STRONG','EM','B','I','SVG','USE','BR'].indexOf(tag) !== -1; }
   function isEditableLeaf(el){
     var kids = Array.prototype.slice.call(el.children);
@@ -40,24 +40,69 @@
     });
   }
 
+  /* ═══ IMAGENS — redimensiona com proporção travada (largura em px + altura auto),
+     nunca só "width: X%", que é o que deixava a logo esticada (a altura dela
+     era fixa no CSS). Base = tamanho renderizado real na primeira vez que
+     o painel abre, não o tamanho intrínseco do arquivo. ═══ */
+  function baseWidth(img){
+    if (!img.dataset.admBaseW){
+      var w = img.getBoundingClientRect().width || img.naturalWidth || 100;
+      img.dataset.admBaseW = String(w);
+    }
+    return parseFloat(img.dataset.admBaseW);
+  }
+  function currentScale(img){
+    var v = parseFloat(img.dataset.admScale || '1');
+    return isNaN(v) ? 1 : v;
+  }
+  function applyImgScale(img, scale){
+    scale = Math.max(0.25, Math.min(3, scale));
+    img.dataset.admScale = String(scale);
+    img.style.width = Math.round(baseWidth(img) * scale) + 'px';
+    img.style.height = 'auto';
+  }
+
   function enableImageEditing(root){
     var imgs = root.querySelectorAll('img');
     imgs.forEach(function(img){
       if (img.closest('.adm-imgwrap')) return;
+      var isCoverPhoto = !!img.closest('.cover__photo');
       var wrap = document.createElement('span');
-      wrap.className = 'adm-imgwrap' + (img.closest('.cover__photo') ? ' adm-imgwrap--fill' : '');
+      wrap.className = 'adm-imgwrap' + (isCoverPhoto ? ' adm-imgwrap--fill' : '');
       img.parentNode.insertBefore(wrap, img);
       wrap.appendChild(img);
+
       var ctrl = document.createElement('span');
       ctrl.className = 'adm-imgctrl adm-ui';
-      ctrl.innerHTML = '<button type="button" data-a="dn" title="Diminuir">−</button><button type="button" data-a="up" title="Aumentar">+</button><button type="button" data-a="swap" title="Trocar imagem">⇄ Trocar</button>';
+      if (isCoverPhoto){
+        // a foto de capa preenche o container (object-fit:cover) — redimensionar
+        // o <img> não faz sentido aqui; quem controla o tamanho dela na composição
+        // é a largura do próprio container .cover__photo.
+        ctrl.innerHTML = '<button type="button" data-a="cw-dn" title="Diminuir área da foto">− largura</button><button type="button" data-a="cw-up" title="Aumentar área da foto">+ largura</button><button type="button" data-a="swap" title="Trocar imagem">⇄ Trocar</button>';
+      } else {
+        ctrl.innerHTML = '<button type="button" data-a="dn" title="Diminuir">−</button><button type="button" data-a="up" title="Aumentar">+</button><button type="button" data-a="swap" title="Trocar imagem">⇄ Trocar</button>';
+      }
       wrap.appendChild(ctrl);
+
       var input = document.createElement('input');
       input.type = 'file'; input.accept = 'image/*'; input.style.display = 'none';
       wrap.appendChild(input);
-      function curPct(){ var m = /([\d.]+)%/.exec(img.style.width||''); return m ? parseFloat(m[1]) : 100; }
-      ctrl.querySelector('[data-a="dn"]').addEventListener('click', function(){ img.style.width = Math.max(20, curPct()-10)+'%'; });
-      ctrl.querySelector('[data-a="up"]').addEventListener('click', function(){ img.style.width = Math.min(160, curPct()+10)+'%'; });
+
+      if (isCoverPhoto){
+        var container = img.closest('.cover__photo');
+        ctrl.querySelector('[data-a="cw-dn"]').addEventListener('click', function(){
+          var w = parseFloat((container.style.width || getComputedStyle(container).width));
+          var pct = container.style.width && container.style.width.indexOf('%')>-1 ? parseFloat(container.style.width) : 57;
+          container.style.width = Math.max(30, pct - 5) + '%';
+        });
+        ctrl.querySelector('[data-a="cw-up"]').addEventListener('click', function(){
+          var pct = container.style.width && container.style.width.indexOf('%')>-1 ? parseFloat(container.style.width) : 57;
+          container.style.width = Math.min(85, pct + 5) + '%';
+        });
+      } else {
+        ctrl.querySelector('[data-a="dn"]').addEventListener('click', function(){ applyImgScale(img, currentScale(img) - 0.1); });
+        ctrl.querySelector('[data-a="up"]').addEventListener('click', function(){ applyImgScale(img, currentScale(img) + 0.1); });
+      }
       ctrl.querySelector('[data-a="swap"]').addEventListener('click', function(){ input.click(); });
       input.addEventListener('change', function(){
         var f = input.files && input.files[0];
@@ -68,12 +113,91 @@
           img.src = reader.result;
           img.removeAttribute('srcset');
           img.removeAttribute('sizes');
+          delete img.dataset.admBaseW; // recalcula a base no próximo resize
         };
         reader.readAsDataURL(f);
       });
     });
   }
 
+  /* ═══ ESPAÇAMENTO — seções (padding vertical) e grids (gap entre itens) ═══ */
+  function enableSpacingControls(){
+    // seções: um controle de espaçamento vertical ao lado das setas de mover
+    document.querySelectorAll('main > section.section, section.cta').forEach(function(sec){
+      attachSpacingPopover(sec, sec, {
+        label: 'Espaçamento da seção',
+        prop: 'paddingBlock',
+        min: 32, max: 220, step: 4,
+        anchorClass: 'adm-section-ctrl',
+        buttonTitle: 'Ajustar espaçamento vertical'
+      });
+    });
+    // grids: espaço entre os itens
+    var grids = [
+      { sel: '.plans', label: 'Espaço entre os planos' },
+      { sel: '.diag', label: 'Espaço entre os itens de diagnóstico' },
+      { sel: '.scope', label: 'Espaço entre os itens de escopo' },
+      { sel: '.process', label: 'Espaço entre as etapas' }
+    ];
+    grids.forEach(function(g){
+      var el = document.querySelector(g.sel);
+      if (!el) return;
+      attachSpacingPopover(el, el, {
+        label: g.label,
+        prop: 'gap',
+        min: 0, max: 64, step: 2,
+        anchorClass: null,
+        buttonTitle: 'Ajustar espaço entre itens',
+        standalone: true
+      });
+    });
+  }
+
+  function attachSpacingPopover(anchorEl, targetEl, opts){
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'adm-spc-btn adm-ui';
+    btn.title = opts.buttonTitle;
+    btn.textContent = '↕';
+
+    var pop = document.createElement('div');
+    pop.className = 'adm-spc-pop adm-ui';
+    var curVal = parseFloat(getComputedStyle(targetEl)[opts.prop]) || opts.min;
+    pop.innerHTML = '<span class="adm-spc-pop__label">' + opts.label + '</span>'
+      + '<input type="range" min="' + opts.min + '" max="' + opts.max + '" step="' + opts.step + '" value="' + Math.round(curVal) + '">'
+      + '<span class="adm-spc-pop__val">' + Math.round(curVal) + 'px</span>';
+    var input = pop.querySelector('input');
+    var valLabel = pop.querySelector('.adm-spc-pop__val');
+    input.addEventListener('input', function(){
+      targetEl.style[opts.prop] = input.value + 'px';
+      valLabel.textContent = input.value + 'px';
+    });
+
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      document.querySelectorAll('.adm-spc-pop.open').forEach(function(p){ if (p !== pop) p.classList.remove('open'); });
+      pop.classList.toggle('open');
+    });
+    document.addEventListener('click', function(e){
+      if (!pop.contains(e.target) && e.target !== btn) pop.classList.remove('open');
+    });
+
+    if (opts.standalone){
+      var holder = document.createElement('div');
+      holder.className = 'adm-spc-holder adm-ui';
+      holder.appendChild(btn);
+      holder.appendChild(pop);
+      anchorEl.parentNode.insertBefore(holder, anchorEl);
+    } else {
+      var group = anchorEl.querySelector(':scope > .' + opts.anchorClass);
+      if (group){
+        group.appendChild(btn);
+        group.appendChild(pop); // pop fica ancorado no grupinho pequeno (26px), não na seção inteira
+      }
+    }
+  }
+
+  /* ═══ MOVER / ADICIONAR / REMOVER ITENS ═══ */
   function makeSortableList(containerSel, itemSel, numSel, allowMove, allowAddDel){
     var container = document.querySelector(containerSel);
     if (!container) return;
@@ -195,6 +319,7 @@
     t._hideTimer = setTimeout(function(){ t.classList.remove('show'); }, 4200);
   }
 
+  /* ═══ SALVAR ═══ */
   async function saveAndPublish(){
     var secret = getSecret(false);
     if (!secret){ showAdmToast('Sem senha, não dá pra publicar.', true); return; }
@@ -205,6 +330,9 @@
     clone.querySelectorAll('[contenteditable]').forEach(function(el){ el.removeAttribute('contenteditable'); });
     clone.querySelectorAll('.is-in').forEach(function(el){ el.classList.remove('is-in'); el.style.transitionDelay=''; });
     clone.classList.remove('adm-on');
+    clone.querySelectorAll('[data-adm-scale],[data-adm-base-w]').forEach(function(el){
+      delete el.dataset.admScale; delete el.dataset.admBaseW;
+    });
     clone.querySelectorAll('.adm-imgwrap').forEach(function(w){
       var img = w.querySelector('img');
       if (img) w.replaceWith(img); else w.remove();
@@ -242,7 +370,7 @@
     var bar = document.createElement('div');
     bar.className = 'adm-bar adm-ui';
     bar.innerHTML = ''
-      + '<div class="adm-bar__group"><span class="adm-bar__label">● Área de edição</span><span class="adm-bar__hint">clique em qualquer texto pra editar · passe o mouse num bloco pra mover/remover</span></div>'
+      + '<div class="adm-bar__group"><span class="adm-bar__label">● Área de edição</span><span class="adm-bar__hint">texto: clique e edite · imagem/seção: passe o mouse pros controles · ↕ ajusta espaçamento</span></div>'
       + '<div class="adm-bar__group">'
         + '<div class="adm-mini"><span>Texto</span><button type="button" id="adm-txt-dn">A−</button><button type="button" id="adm-txt-up">A+</button></div>'
         + '<button type="button" class="btn btn--tertiary" id="adm-exit"><span class="btn__face">Sair</span></button>'
@@ -255,9 +383,7 @@
 
     document.getElementById('adm-txt-dn').addEventListener('click', function(){ resizeFocused(-1); });
     document.getElementById('adm-txt-up').addEventListener('click', function(){ resizeFocused(1); });
-    document.getElementById('adm-exit').addEventListener('click', function(){
-      var u = new URL(location.href); u.searchParams.delete('admin'); location.href = u.toString();
-    });
+    document.getElementById('adm-exit').addEventListener('click', function(){ location.href = '/'; });
     document.getElementById('adm-save').addEventListener('click', saveAndPublish);
   }
 
@@ -270,6 +396,7 @@
     makeSortableList('.process', '.step', '.step__n', true, true);
     makeSortableList('.plans', '.plan', null, true, false);
     enableSectionReorder();
+    enableSpacingControls();
     injectAdminBar();
     document.addEventListener('focusin', function(e){
       if (e.target.closest && e.target.closest('[contenteditable="true"]')) lastFocused = e.target.closest('[contenteditable="true"]');

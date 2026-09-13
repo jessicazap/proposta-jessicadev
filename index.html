@@ -366,9 +366,21 @@ body.adm-on [contenteditable="true"]:focus{outline:1px dashed var(--lime); outli
 .adm-imgctrl button:hover{border-color:var(--lime); color:var(--lime);}
 
 .adm-section-ctrl{position:absolute; top:8px; right:8px; z-index:20; display:flex; gap:4px; opacity:0; transition:opacity .15s ease;}
-.section:hover > .adm-section-ctrl{opacity:1;}
+.section:hover > .adm-section-ctrl, .cta:hover > .adm-section-ctrl{opacity:1;}
 .adm-section-ctrl button{width:26px; height:26px; display:flex; align-items:center; justify-content:center; background:var(--surface-2); border:1px solid var(--line-3); color:var(--ink); font-size:12px; cursor:pointer;}
 .adm-section-ctrl button:hover{border-color:var(--lime); color:var(--lime);}
+
+/* controle de espaçamento (seções = botão dentro do adm-section-ctrl; grids = holder próprio) */
+.adm-spc-btn{width:26px; height:26px; display:flex; align-items:center; justify-content:center; background:var(--surface-2); border:1px solid var(--line-3); color:var(--ink); font-size:13px; cursor:pointer;}
+.adm-spc-btn:hover{border-color:var(--lime); color:var(--lime);}
+.adm-spc-holder{position:relative; display:flex; justify-content:flex-end; padding:0 0 8px; margin-top:-4px;}
+.adm-spc-holder .adm-spc-btn{opacity:.35; transition:opacity .15s ease;}
+.adm-spc-holder:hover .adm-spc-btn{opacity:1;}
+.adm-spc-pop{position:absolute; top:100%; right:0; z-index:25; margin-top:6px; background:var(--surface-2); border:1px solid var(--line-3); padding:14px 16px; width:240px; display:none; flex-direction:column; gap:8px; box-shadow:0 16px 34px -16px rgba(0,0,0,.75);}
+.adm-spc-pop.open{display:flex;}
+.adm-spc-pop__label{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3);}
+.adm-spc-pop input[type="range"]{width:100%; accent-color:var(--lime);}
+.adm-spc-pop__val{font-family:var(--mono); font-size:11px; color:var(--lime); align-self:flex-end;}
 </style>
 </head>
 <body>
