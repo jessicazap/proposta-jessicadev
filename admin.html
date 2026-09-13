@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Proposta Comercial — jessicadev</title>
+<meta name="description" content="Site profissional + atendimento que responde sozinho no WhatsApp. Soluções digitais para o seu negócio, por jessicadev.">
+<meta name="theme-color" content="#0A0A0A">
+<meta name="color-scheme" content="dark">
+<meta name="author" content="jessicadev">
+<meta name="robots" content="noindex, nofollow">
+
+<!-- ⚠ ORIGEM CANÔNICA: se o domínio do projeto mudar (domínio próprio ou outro slug .vercel.app),
+     trocar https://proposta-jessicadev.vercel.app em canonical + og:url + og:image + twitter:image. -->
+<link rel="canonical" href="https://proposta-jessicadev.vercel.app/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="jessicadev">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://proposta-jessicadev.vercel.app/">
+<meta property="og:title" content="Proposta Comercial — jessicadev">
+<meta property="og:description" content="Site profissional + atendimento que responde sozinho no WhatsApp. Soluções digitais para o seu negócio.">
+<meta property="og:image" content="https://proposta-jessicadev.vercel.app/og-image.jpg">
+<meta property="og:image:secure_url" content="https://proposta-jessicadev.vercel.app/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="jessicadev — proposta comercial">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Proposta Comercial — jessicadev">
+<meta name="twitter:description" content="Site profissional + atendimento que responde sozinho no WhatsApp. Soluções digitais para o seu negócio.">
+<meta name="twitter:image" content="https://proposta-jessicadev.vercel.app/og-image.jpg">
+<meta name="twitter:image:alt" content="jessicadev — proposta comercial">
+
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="laptop.jpg" imagesrcset="laptop-900.jpg 900w, laptop.jpg 1536w" imagesizes="(max-width:980px) 100vw, 57vw" fetchpriority="high">
+
+<style>
+/* ══════════════════════════════════════════════════════════════
+   jessicadev — Proposta Comercial (build estático de produção)
+   Sistema visual: Sora (display/corpo) + JetBrains Mono (labels/números)
+   Paleta: #0A0A0A / #111418 / #1F2329 / #2E333A / #F8FAFC + lima #C7FF2B → verde #6AFF6A
+   ══════════════════════════════════════════════════════════════ */
+
+:root{
+  --bg:#0A0A0A; --surface:#111418; --surface-2:#1F2329; --surface-3:#2E333A;
+  --ink:#F8FAFC; --ink-2:#A3AEB6; --ink-3:#6B7580; --ink-4:#414952;
+  --lime:#C7FF2B; --green:#6AFF6A;
+  --grad:linear-gradient(104deg, #C7FF2B 0%, #9CFF48 48%, #6AFF6A 100%);
+  --line:rgba(248,250,252,.075); --line-2:rgba(248,250,252,.14); --line-3:rgba(248,250,252,.26);
+  --border-brand:rgba(199,255,43,.65); --border-brand-strong:#C7FF2B;
+  --sans:'Sora', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono:'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --shell:1240px; --gutter:clamp(20px, 4.4vw, 52px); --rail:152px; --section-y:clamp(76px, 9.5vw, 148px);
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --cut:14px; --cut-sm:9px;
+}
+.chamfer{clip-path:polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));}
+.chamfer-sm{clip-path:polygon(var(--cut-sm) 0, 100% 0, 100% calc(100% - var(--cut-sm)), calc(100% - var(--cut-sm)) 100%, 0 100%, 0 var(--cut-sm));}
+.corner-accent{position:relative;}
+.corner-accent::before{content:""; position:absolute; z-index:2; top:0; right:0; width:22px; height:22px; border-top:1.5px solid var(--border-brand-strong); border-right:1.5px solid var(--border-brand-strong); opacity:.75; pointer-events:none;}
+*,*::before,*::after{box-sizing:border-box;}
+html{background:var(--bg); -webkit-text-size-adjust:100%; scroll-behavior:smooth;}
+body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); font-weight:400; font-size:16.5px; line-height:1.65; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; overflow-x:hidden; font-feature-settings:"ss01","cv01";}
+h1,h2,h3,h4,p{margin:0;}
+h1,h2,h3{text-wrap:balance;}
+p{text-wrap:pretty;}
+a{color:inherit; text-decoration:none;}
+img{display:block; max-width:100%;}
+ul{margin:0; padding:0; list-style:none;}
+::selection{background:rgba(199,255,43,.85); color:#06110A;}
+:focus-visible{outline:2px solid var(--lime); outline-offset:3px; border-radius:2px;}
+
+.grain{position:fixed; inset:-50%; z-index:40; pointer-events:none; opacity:.042;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");}
+.armature{position:fixed; inset:0; z-index:0; pointer-events:none; display:flex; justify-content:center;}
+.armature i{width:min(var(--shell), 100% - var(--gutter)*2); height:100%; border-left:1px solid rgba(248,250,252,.045); border-right:1px solid rgba(248,250,252,.045);}
+@media (max-width:860px){ .armature{display:none;} }
+
+.shell{width:100%; max-width:var(--shell); margin-inline:auto; padding-inline:var(--gutter); position:relative; z-index:2;}
+
+.mono{font-family:var(--mono); font-variant-numeric:tabular-nums;}
+.label{font-family:var(--mono); font-size:10.5px; font-weight:500; letter-spacing:.26em; text-transform:uppercase; color:var(--ink-3);}
+.label--tick{display:inline-flex; align-items:center; gap:12px;}
+.label--tick::before{content:""; width:26px; height:1px; background:var(--grad); flex:none; opacity:.9;}
+.mark{width:13px; height:13px; flex:none;}
+
+.btn{--btn-y:15px; --btn-px:28px; --cutb:var(--cut); display:inline-flex; align-items:center; justify-content:center; gap:10px; font-family:var(--sans); font-size:14.5px; font-weight:600; letter-spacing:.005em; text-transform:uppercase; padding:var(--btn-y) var(--btn-px); min-height:48px; border:none; cursor:pointer; position:relative; isolation:isolate;
+  clip-path:polygon(var(--cutb) 0, 100% 0, 100% calc(100% - var(--cutb)), calc(100% - var(--cutb)) 100%, 0 100%, 0 var(--cutb));
+  transition:transform .32s var(--ease), box-shadow .32s var(--ease), background-color .32s var(--ease), color .32s var(--ease);}
+.btn svg{flex:none; transition:transform .32s var(--ease);}
+.btn:hover{transform:translateY(-2px);}
+.btn:active{transform:translateY(0) scale(.98);}
+.btn:hover .arrow{transform:translateX(3px);}
+.btn__face{display:contents;}
+.btn--primary{background-image:var(--grad); color:#07130A; font-weight:700; box-shadow:0 1px 0 rgba(255,255,255,.35) inset, 0 10px 28px -16px rgba(199,255,43,.7);}
+.btn--primary:hover{box-shadow:0 1px 0 rgba(255,255,255,.45) inset, 0 18px 40px -18px rgba(199,255,43,.85);}
+
+.btn--secondary, .btn--tertiary, .btn--outline{padding:0;}
+.btn--secondary{background:var(--border-brand);}
+.btn--secondary:hover{background:var(--border-brand-strong); box-shadow:0 14px 34px -20px rgba(199,255,43,.6);}
+.btn--tertiary{background:var(--line-2);}
+.btn--tertiary:hover{background:var(--line-3);}
+.btn--outline{background:var(--ink-3);}
+.btn--outline:hover{background:var(--ink);}
+
+.btn--secondary .btn__face, .btn--tertiary .btn__face, .btn--outline .btn__face{
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  margin:1.5px; padding:var(--btn-y) var(--btn-px);
+  transition:background-color .32s var(--ease);
+  clip-path:polygon(calc(var(--cutb) - 1.5px) 0, 100% 0, 100% calc(100% - (var(--cutb) - 1.5px)), calc(100% - (var(--cutb) - 1.5px)) 100%, 0 100%, 0 calc(var(--cutb) - 1.5px));
+}
+.btn--secondary .btn__face{background:#0A0A0A; color:var(--ink);}
+.btn--secondary:hover .btn__face{background:rgba(199,255,43,.1);}
+.btn--secondary svg{color:var(--lime);}
+.btn--tertiary .btn__face{background:var(--surface); color:var(--ink);}
+.btn--tertiary:hover .btn__face{background:var(--surface-2);}
+.btn--outline .btn__face{background:transparent; color:var(--ink);}
+.btn--outline:hover .btn__face{background:rgba(248,250,252,.06);}
+
+.btn--sm{--cutb:var(--cut-sm); --btn-y:9px; --btn-px:18px; min-height:38px; font-size:12px;}
+
+.topbar{position:fixed; top:0; left:0; right:0; z-index:60; height:84px; display:flex; align-items:center; transition:background-color .4s var(--ease), border-color .4s var(--ease), backdrop-filter .4s var(--ease); border-bottom:1px solid transparent; opacity:0; animation:topbarIn .6s var(--ease) 80ms forwards;}
+@keyframes topbarIn{to{opacity:1;}}
+@media (prefers-reduced-motion:reduce){ .topbar{opacity:1; animation:none;} }
+.topbar.is-stuck{background:rgba(10,10,10,.72); backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%); border-bottom-color:var(--line);}
+.topbar .shell{display:flex; align-items:center; justify-content:space-between; gap:20px;}
+.topbar__logo{display:inline-flex;}
+.topbar__logo img{height:46px; width:auto; display:block;}
+@media (max-width:520px){ .topbar__logo img{height:32px;} }
+.topbar__meta{display:flex; align-items:center; gap:26px;}
+.topbar__ref{font-family:var(--mono); font-size:10.5px; letter-spacing:.24em; text-transform:uppercase; color:var(--ink-3); padding-left:26px; border-left:1px solid var(--line-2);}
+@media (max-width:760px){ .topbar__ref{display:none;} }
+
+.cover{position:relative; min-height:100svh; display:flex; flex-direction:column; justify-content:flex-end; padding-top:132px; overflow:hidden;}
+.cover__grid{position:absolute; inset:0; z-index:0; pointer-events:none; opacity:.5;
+  background-image:linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(62% 60% at 78% 38%, #000 0%, transparent 72%);
+  mask-image:radial-gradient(62% 60% at 78% 38%, #000 0%, transparent 72%);}
+.cover__ambient{position:absolute; inset:0; z-index:0; pointer-events:none; background:radial-gradient(60% 48% at 78% 42%, rgba(106,255,106,.13), transparent 62%), radial-gradient(38% 34% at 96% 30%, rgba(199,255,43,.09), transparent 70%), radial-gradient(70% 55% at 20% 84%, rgba(106,255,106,.045), transparent 68%);}
+.cover__photo{position:absolute; z-index:1; pointer-events:none; top:0; right:0; width:57%; height:100%; -webkit-mask-image:linear-gradient(to right, transparent 0%, rgba(0,0,0,.5) 11%, #000 30%); mask-image:linear-gradient(to right, transparent 0%, rgba(0,0,0,.5) 11%, #000 30%);}
+.cover__photo::before{content:""; position:absolute; z-index:2; top:22px; right:22px; width:34px; height:34px; border-top:1.5px solid rgba(199,255,43,.8); border-right:1.5px solid rgba(199,255,43,.8); clip-path:polygon(40% 0,100% 0,100% 100%); opacity:.85;}
+.cover__photo::after{content:""; position:absolute; z-index:2; bottom:14%; left:6%; width:26px; height:26px; border-bottom:1.5px solid rgba(106,255,106,.6); border-left:1.5px solid rgba(106,255,106,.6); clip-path:polygon(0 0,0 100%,60% 100%); opacity:.7;}
+.cover__photo img{width:100%; height:100%; object-fit:cover; object-position:52% 46%; -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 14%, #000 62%, transparent 97%); mask-image:linear-gradient(to bottom, transparent 0%, #000 14%, #000 62%, transparent 97%);}
+.cover__contact{position:absolute; z-index:1; pointer-events:none; right:-4%; bottom:-6%; width:64%; height:34%; background:radial-gradient(ellipse at center, rgba(0,0,0,.9), transparent 66%);}
+@media (max-width:980px){ .cover__grid{display:none;} }
+.cover__body{position:relative; z-index:3; padding-bottom:clamp(34px,5vw,58px);}
+.cover__type{max-width:min(640px, 56%);}
+@media (max-width:980px){ .cover__type{max-width:100%;} }
+.cover__eyebrow{margin-bottom:clamp(20px,3vw,34px);}
+.cover h1{font-size:clamp(58px, 11.2vw, 118px); line-height:.88; font-weight:800; letter-spacing:-.042em; margin-left:-.055em;}
+.cover h1 .grad{background-image:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; filter:drop-shadow(0 0 14px rgba(154,255,90,.14));}
+.cover__sub{margin-top:clamp(20px,2.6vw,30px); font-size:clamp(17px,1.5vw,20px); font-weight:300; color:var(--ink-2); max-width:24ch; line-height:1.5;}
+.cover__rule{margin-top:clamp(30px,4vw,46px); height:1px; width:100%; background:linear-gradient(to right, var(--line-2), transparent 55%);}
+.services{display:flex; flex-wrap:wrap; gap:0 clamp(16px,2.4vw,30px); margin-top:20px;}
+.services span{font-family:var(--mono); font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-3); padding-right:clamp(16px,2.4vw,30px); border-right:1px solid var(--line); line-height:1;}
+.services span:last-child{border-right:none; padding-right:0;}
+.colophon{position:relative; z-index:3; border-top:1px solid var(--line-2); display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); margin-top:clamp(34px,5vw,60px);}
+.colophon::before{content:""; position:absolute; z-index:4; top:-1px; right:0; width:26px; height:26px; border-top:1.5px solid var(--border-brand-strong); border-right:1.5px solid var(--border-brand-strong); opacity:.7; pointer-events:none;}
+.colophon > div{background:var(--bg); padding:22px 26px 24px 0; padding-left:0;}
+.colophon > div + div{padding-left:26px;}
+.colophon dt{font-family:var(--mono); font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-3); margin-bottom:9px;}
+.colophon dd{margin:0; font-size:15px; font-weight:500; color:var(--ink); line-height:1.35;}
+@media (max-width:760px){ .colophon{grid-template-columns:1fr;} .colophon > div + div{padding-left:0;} .colophon > div{padding:18px 0;} }
+@media (max-width:980px){
+  .cover{min-height:auto; padding-top:104px;}
+  .cover__photo{position:relative; width:100vw; margin-left:calc(50% - 50vw); height:clamp(240px,52vw,380px); -webkit-mask-image:none; mask-image:none; margin-top:34px;}
+  .cover__photo img{object-position:56% 50%; -webkit-mask-image:linear-gradient(to bottom, #000 58%, transparent 100%); mask-image:linear-gradient(to bottom, #000 58%, transparent 100%);}
+  .cover__contact{display:none;}
+  .cover__body{padding-bottom:0;}
+}
+
+.section{position:relative; padding-block:var(--section-y); scroll-margin-top:100px;}
+.section + .section{border-top:1px solid var(--line);}
+.section + .section::before{content:""; position:absolute; top:-1px; left:0; width:56px; height:1px; background:var(--grad);}
+.section__inner{display:grid; grid-template-columns:var(--rail) minmax(0,1fr); gap:0 clamp(24px,3.4vw,48px);}
+@media (max-width:900px){ .section__inner{grid-template-columns:1fr; gap:26px;} }
+.rail{position:sticky; top:120px; align-self:start;}
+.rail__num{font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:.08em; background-image:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;}
+.rail__label{margin-top:8px; font-family:var(--mono); font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-3); line-height:1.5;}
+@media (max-width:900px){ .rail{position:static; display:flex; align-items:center; gap:12px;} .rail__num{font-size:11px;} .rail__label{margin-top:0;} }
+.headline{font-size:clamp(28px,3.5vw,44px); font-weight:600; letter-spacing:-.028em; line-height:1.1; max-width:19ch;}
+.headline .grad{background-image:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;}
+.deck{margin-top:18px; color:var(--ink-2); font-weight:300; font-size:16.5px; max-width:56ch;}
+
+.about{display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); gap:clamp(32px,5vw,72px); margin-top:clamp(30px,4vw,46px); align-items:start;}
+@media (max-width:900px){ .about{grid-template-columns:1fr;} }
+.about p{color:var(--ink-2); font-weight:300; font-size:16.5px;}
+.about p + p{margin-top:18px;}
+.about strong{color:var(--ink); font-weight:600;}
+.spec{border-top:1px solid var(--line-2);}
+.spec__row{display:flex; align-items:baseline; gap:14px; padding:15px 0; border-bottom:1px solid var(--line);}
+.spec__k{font-size:14px; color:var(--ink-3); font-weight:400; white-space:nowrap;}
+.spec__fill{flex:1; height:1px; min-width:12px; background:repeating-linear-gradient(to right, var(--line-2) 0 1px, transparent 1px 5px); transform:translateY(-3px);}
+.spec__v{font-family:var(--mono); font-size:13px; font-weight:500; color:var(--ink); white-space:nowrap;}
+.spec__v.is-accent{color:var(--lime);}
+@media (max-width:400px){
+  .spec__row{flex-wrap:wrap; row-gap:4px;}
+  .spec__fill{display:none;}
+  .spec__k{width:100%;}
+}
+
+.diag{margin-top:clamp(30px,4vw,50px); display:grid; grid-template-columns:repeat(2,minmax(0,1fr));}
+@media (max-width:760px){ .diag{grid-template-columns:1fr;} }
+.diag__item{padding:clamp(24px,2.6vw,32px) clamp(24px,2.8vw,38px) clamp(26px,3vw,36px) 0; border-top:1px solid var(--line); position:relative;}
+.diag__item:nth-child(odd){border-right:1px solid var(--line);}
+.diag__item:nth-child(even){padding-left:clamp(24px,2.8vw,38px); padding-right:0;}
+@media (max-width:760px){ .diag__item, .diag__item:nth-child(even){padding:24px 0; border-right:none;} }
+.diag__item::after{content:""; position:absolute; top:-1px; left:0; width:22px; height:1px; background:var(--grad); opacity:.55; transition:width .5s var(--ease), opacity .5s var(--ease);}
+.diag__item:nth-child(even)::after{left:clamp(24px,2.8vw,38px);}
+@media (max-width:760px){ .diag__item:nth-child(even)::after{left:0;} }
+.diag__item:hover::after{width:56px; opacity:1;}
+.diag__n{font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; color:var(--ink-4); display:block; margin-bottom:16px;}
+.diag__t{font-size:18px; font-weight:600; letter-spacing:-.015em; line-height:1.3; display:flex; gap:11px; align-items:flex-start;}
+.diag__t .mark{margin-top:6px;}
+.diag__d{margin-top:10px; padding-left:24px; color:var(--ink-2); font-weight:300; font-size:15px; line-height:1.62; max-width:44ch;}
+
+.solution{margin-top:clamp(30px,4vw,48px); position:relative; border-radius:18px; overflow:hidden; background:radial-gradient(120% 90% at 100% 0%, rgba(106,255,106,.075), transparent 58%), linear-gradient(168deg, #14181D 0%, #0E1116 60%, #0C0F13 100%); border:1px solid var(--line-2);}
+.solution::before{content:""; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(to right, transparent, rgba(199,255,43,.9) 12%, rgba(106,255,106,.55) 42%, transparent 78%);}
+.scope{display:grid; grid-template-columns:repeat(2,minmax(0,1fr));}
+@media (max-width:760px){ .scope{grid-template-columns:1fr;} }
+.scope__item{padding:clamp(26px,3vw,36px); border-bottom:1px solid var(--line); position:relative;}
+.scope__item:nth-child(odd){border-right:1px solid var(--line);}
+.scope__item:nth-child(n+3){border-bottom:none;}
+@media (max-width:760px){ .scope__item{border-right:none !important;} .scope__item:nth-child(3){border-bottom:1px solid var(--line);} }
+.scope__head{display:flex; align-items:center; gap:11px; margin-bottom:12px;}
+.scope__n{font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; color:var(--ink-4);}
+.scope__t{font-size:16.5px; font-weight:600; letter-spacing:-.012em;}
+.scope__d{color:var(--ink-2); font-weight:300; font-size:14.5px; line-height:1.62; max-width:42ch;}
+
+.process{margin-top:clamp(36px,5vw,60px); display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:0 clamp(14px,1.8vw,26px);}
+.step{position:relative; padding-top:30px; border-top:1px solid var(--line);}
+.step::before{content:""; position:absolute; top:-3.5px; left:0; width:7px; height:7px; border-radius:50%; background-image:var(--grad); box-shadow:0 0 0 4px var(--bg), 0 0 14px rgba(154,255,90,.55);}
+.step:nth-child(1){border-top-color:transparent; background-image:linear-gradient(to right, rgba(199,255,43,.85), rgba(106,255,106,.25) 60%, var(--line) 100%); background-size:100% 1px; background-repeat:no-repeat; background-position:top left;}
+.step__n{font-family:var(--mono); font-size:12px; font-weight:600; color:var(--ink-4); letter-spacing:.08em;}
+.step:nth-child(1) .step__n{background-image:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;}
+.step__t{margin-top:12px; font-size:16px; font-weight:600; letter-spacing:-.015em; line-height:1.25;}
+.step__d{margin-top:9px; color:var(--ink-2); font-weight:300; font-size:13.8px; line-height:1.6;}
+@media (max-width:900px){
+  .process{grid-template-columns:1fr; gap:0;}
+  .step{border-top:none; border-left:1px solid var(--line); padding:0 0 28px 26px; margin-left:3px;}
+  .step:last-child{padding-bottom:0; border-left-color:transparent;}
+  .step::before{top:5px; left:-3.5px;}
+  .step:nth-child(1){background:none; border-left:1px solid rgba(199,255,43,.5);}
+}
+
+.plans{margin-top:clamp(34px,4.5vw,54px); display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(14px,1.6vw,22px); align-items:stretch;}
+@media (max-width:900px){ .plans{grid-template-columns:1fr; gap:16px;} }
+.plan{position:relative; display:flex; flex-direction:column; background:linear-gradient(180deg, rgba(17,20,24,.9), rgba(12,14,18,.9)); border:1px solid var(--line); border-radius:8px; padding:clamp(24px,2.4vw,30px); transition:border-color .4s var(--ease), transform .4s var(--ease);}
+.plan:hover{border-color:var(--line-2); transform:translateY(-3px);}
+.plan--featured{border:1px solid transparent; border-radius:10px; background:linear-gradient(180deg, #14181E, #0D1014) padding-box, linear-gradient(168deg, rgba(199,255,43,.85), rgba(106,255,106,.35) 46%, rgba(46,51,58,.6) 100%) border-box; box-shadow:0 40px 80px -50px rgba(154,255,90,.55); margin-block:clamp(-12px,-1vw,0px); padding-block:clamp(30px,3vw,42px);}
+.plan--featured::after{content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; background:radial-gradient(90% 55% at 50% 0%, rgba(154,255,90,.09), transparent 62%);}
+.plan--featured::before{content:""; position:absolute; z-index:2; bottom:-1px; left:-1px; width:24px; height:24px; border-bottom:1.5px solid var(--border-brand-strong); border-left:1.5px solid var(--border-brand-strong); opacity:.7; pointer-events:none;}
+@media (max-width:900px){ .plan--featured{margin-block:0;} }
+.plan__tag{position:absolute; top:0; right:clamp(24px,2.4vw,30px); transform:translateY(-50%); font-family:var(--mono); font-size:9.5px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; background-image:var(--grad); color:#07130A; padding:7px 14px; z-index:2; clip-path:polygon(6px 0, 100% 0, 100% 100%, 0 100%, 0 6px);}
+.plan__name{font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-3);}
+.plan--featured .plan__name{color:var(--lime);}
+.plan__price{display:flex; align-items:baseline; gap:7px; margin-top:18px; padding-bottom:22px; border-bottom:1px solid var(--line);}
+.plan__cur{font-family:var(--mono); font-size:14px; color:var(--ink-3); font-weight:500;}
+.plan__val{font-size:clamp(34px,3.4vw,42px); font-weight:600; letter-spacing:-.035em; line-height:1; font-variant-numeric:tabular-nums;}
+.plan--featured .plan__val{background-image:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;}
+.plan__list{margin:22px 0 28px; display:flex; flex-direction:column; gap:13px; flex:1;}
+.plan__list li{display:flex; gap:11px; font-size:14px; font-weight:300; color:var(--ink-2); line-height:1.5;}
+.plan__list .mark{margin-top:5px; width:11px; height:11px;}
+.plan .btn{width:100%;}
+
+.roi{margin-top:clamp(26px,3vw,40px); padding-top:clamp(26px,3vw,38px); border-top:1px solid var(--line-2); position:relative; display:grid; grid-template-columns:minmax(auto,.42fr) minmax(0,1fr); gap:clamp(24px,4vw,56px); align-items:start;}
+.roi::before{content:""; position:absolute; top:-1px; left:0; width:80px; height:1px; background:var(--grad);}
+@media (max-width:760px){ .roi{grid-template-columns:1fr; gap:20px;} }
+.roi__fig{font-size:clamp(36px,5vw,66px); font-weight:600; letter-spacing:-.045em; line-height:.95; background-image:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; filter:drop-shadow(0 0 30px rgba(154,255,90,.18));}
+.roi__cap{margin-top:12px; font-family:var(--mono); font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-3);}
+.roi__txt{color:var(--ink-2); font-weight:300; font-size:16px; max-width:60ch;}
+
+.terms{margin-top:clamp(30px,4vw,46px); display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0;}
+@media (max-width:760px){ .terms{grid-template-columns:1fr;} }
+.term{padding:26px clamp(24px,3vw,38px) 26px 0; border-top:1px solid var(--line-2); position:relative;}
+.term:nth-child(2){padding-left:clamp(24px,3vw,38px); padding-right:0; border-left:1px solid var(--line);}
+@media (max-width:760px){ .term:nth-child(2){padding-left:0; border-left:none;} }
+.term__k{font-family:var(--mono); font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-3); margin-bottom:14px;}
+.term__t{font-size:17px; font-weight:600; letter-spacing:-.015em; margin-bottom:9px;}
+.term__d{color:var(--ink-2); font-weight:300; font-size:15px; line-height:1.62; max-width:46ch;}
+
+.cta{position:relative; padding-block:clamp(90px,12vw,160px); border-top:1px solid var(--line); overflow:hidden; text-align:center; scroll-margin-top:100px;}
+.cta__ambient{position:absolute; inset:0; pointer-events:none; z-index:0; background:radial-gradient(52% 62% at 50% 108%, rgba(106,255,106,.14), transparent 66%);}
+.cta__icon{width:46px; height:46px; margin:0 auto; filter:drop-shadow(0 0 26px rgba(154,255,90,.45)); border-radius:10px;}
+.cta h2{margin-top:26px; font-size:clamp(30px,5vw,54px); font-weight:600; letter-spacing:-.035em; line-height:1.06; max-width:17ch; margin-inline:auto;}
+.cta h2 .grad{background-image:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;}
+.cta__sub{margin:20px auto 0; color:var(--ink-2); font-weight:300; max-width:48ch;}
+.cta__actions{margin-top:36px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+.cta .label--tick::after{content:""; width:26px; height:1px; background:var(--grad); opacity:.9;}
+
+.footer{border-top:1px solid var(--line); padding-block:30px 34px;}
+.footer .shell{display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap;}
+.footer__left{display:flex; align-items:center; gap:13px;}
+.footer__icon{width:22px; height:22px; border-radius:6px;}
+.footer__domain{font-family:var(--mono); font-size:13px; color:var(--ink-2); letter-spacing:.02em;}
+.footer__tag{font-family:var(--mono); font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:var(--ink-4);}
+.footer__bar{height:2px; background:var(--grad); opacity:.85;}
+
+.rv{opacity:0; transform:translateY(16px); transition:opacity .85s var(--ease), transform .85s var(--ease);}
+.rv.is-in{opacity:1; transform:none;}
+.cover .rv.d1{transition-delay:180ms;}
+.cover .rv.d2{transition-delay:250ms;}
+.cover .rv.d3{transition-delay:340ms;}
+.cover .rv.d4{transition-delay:420ms;}
+.cover .rv.d5{transition-delay:500ms;}
+.cover .rv.d6{transition-delay:620ms;}
+@media (prefers-reduced-motion:reduce){ .rv{opacity:1; transform:none; transition:none;} html{scroll-behavior:auto;} .btn{transition:none;} }
+
+@media print{
+  .topbar,.grain,.armature,.adm-bar,.adm-ctrl,.adm-imgctrl,.adm-section-ctrl{display:none !important;}
+  body{background:#0A0A0A;}
+  .section,.cover,.cta{break-inside:avoid; page-break-inside:avoid;}
+  .rv{opacity:1 !important; transform:none !important;}
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ÁREA DE EDIÇÃO (admin) — só ativa com ?admin=jessicadev na URL.
+   "Salvar e publicar" grava direto no GitHub via /api/save; o
+   próprio commit dispara o redeploy automático da Vercel.
+   ══════════════════════════════════════════════════════════════ */
+body.adm-on{padding-bottom:62px;}
+.adm-bar{position:fixed; left:0; right:0; bottom:0; z-index:99; display:flex; align-items:center; justify-content:space-between; gap:18px; padding:11px 20px; background:rgba(9,10,11,.94); backdrop-filter:blur(14px); border-top:1px solid var(--border-brand); flex-wrap:wrap;}
+.adm-bar__group{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+.adm-bar__label{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--lime); display:flex; align-items:center; gap:8px;}
+.adm-bar__hint{font-family:var(--mono); font-size:10.5px; color:var(--ink-3); display:none;}
+@media (min-width:900px){ .adm-bar__hint{display:inline;} }
+.adm-mini{display:flex; align-items:center; gap:4px; background:var(--surface-2); border:1px solid var(--line-2); padding:4px;}
+.adm-mini button{width:26px; height:26px; background:none; border:none; color:var(--ink); font-family:var(--mono); font-size:13px; cursor:pointer; display:flex; align-items:center; justify-content:center;}
+.adm-mini button:hover{color:var(--lime);}
+.adm-mini span{font-family:var(--mono); font-size:10px; color:var(--ink-4); padding:0 4px; white-space:nowrap;}
+.adm-bar .btn{min-height:36px;}
+.adm-bar .btn .btn__face{padding:8px 16px; font-size:11.5px;}
+.adm-bar .btn--primary{padding:8px 16px; font-size:11.5px;}
+
+.adm-toast{position:fixed; left:50%; bottom:74px; transform:translate(-50%,10px); background:var(--surface-2); border:1px solid var(--lime); color:var(--ink); padding:10px 18px; z-index:100; font-size:13px; font-family:var(--mono); opacity:0; pointer-events:none; transition:all .2s ease; max-width:88vw; text-align:center;}
+.adm-toast.show{opacity:1; transform:translate(-50%,0);}
+.adm-toast.err{border-color:#ff6a6a;}
+
+body.adm-on [contenteditable="true"]{cursor:text; outline:1px dashed transparent; outline-offset:3px; border-radius:2px; transition:outline-color .15s ease;}
+body.adm-on [contenteditable="true"]:hover{outline-color:rgba(199,255,43,.4);}
+body.adm-on [contenteditable="true"]:focus{outline:1px dashed var(--lime); outline-offset:3px;}
+
+.adm-block{position:relative;}
+.adm-ctrl{position:absolute; top:-13px; right:4px; z-index:20; display:flex; gap:3px; opacity:0; transition:opacity .15s ease; pointer-events:none;}
+.adm-block:hover > .adm-ctrl, .adm-ctrl:hover{opacity:1; pointer-events:auto;}
+.adm-ctrl button{width:22px; height:22px; display:flex; align-items:center; justify-content:center; background:var(--surface-2); border:1px solid var(--line-3); color:var(--ink); font-size:11px; line-height:1; cursor:pointer; padding:0;}
+.adm-ctrl button:hover{border-color:var(--lime); color:var(--lime);}
+.adm-add{display:inline-flex; align-items:center; gap:6px; margin-top:16px; background:none; border:1px dashed var(--line-3); color:var(--ink-3); font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; padding:9px 16px; cursor:pointer; grid-column:1/-1;}
+.adm-add:hover{border-color:var(--lime); color:var(--lime);}
+
+.adm-imgwrap{position:relative; display:inline-block;}
+.adm-imgwrap--fill{display:block; width:100%; height:100%;}
+.adm-imgctrl{position:absolute; left:8px; bottom:8px; z-index:20; display:flex; gap:4px; opacity:0; transition:opacity .15s ease;}
+.adm-imgwrap:hover .adm-imgctrl{opacity:1;}
+.adm-imgctrl button{background:rgba(9,10,11,.88); border:1px solid var(--line-3); color:var(--ink); font-family:var(--mono); font-size:10.5px; padding:6px 10px; cursor:pointer;}
+.adm-imgctrl button:hover{border-color:var(--lime); color:var(--lime);}
+
+.adm-section-ctrl{position:absolute; top:8px; right:8px; z-index:20; display:flex; gap:4px; opacity:0; transition:opacity .15s ease;}
+.section:hover > .adm-section-ctrl, .cta:hover > .adm-section-ctrl{opacity:1;}
+.adm-section-ctrl button{width:26px; height:26px; display:flex; align-items:center; justify-content:center; background:var(--surface-2); border:1px solid var(--line-3); color:var(--ink); font-size:12px; cursor:pointer;}
+.adm-section-ctrl button:hover{border-color:var(--lime); color:var(--lime);}
+
+/* controle de espaçamento (seções = botão dentro do adm-section-ctrl; grids = holder próprio) */
+.adm-spc-btn{width:26px; height:26px; display:flex; align-items:center; justify-content:center; background:var(--surface-2); border:1px solid var(--line-3); color:var(--ink); font-size:13px; cursor:pointer;}
+.adm-spc-btn:hover{border-color:var(--lime); color:var(--lime);}
+.adm-spc-holder{position:relative; display:flex; justify-content:flex-end; padding:0 0 8px; margin-top:-4px;}
+.adm-spc-holder .adm-spc-btn{opacity:.35; transition:opacity .15s ease;}
+.adm-spc-holder:hover .adm-spc-btn{opacity:1;}
+.adm-spc-pop{position:absolute; top:100%; right:0; z-index:25; margin-top:6px; background:var(--surface-2); border:1px solid var(--line-3); padding:14px 16px; width:240px; display:none; flex-direction:column; gap:8px; box-shadow:0 16px 34px -16px rgba(0,0,0,.75);}
+.adm-spc-pop.open{display:flex;}
+.adm-spc-pop__label{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3);}
+.adm-spc-pop input[type="range"]{width:100%; accent-color:var(--lime);}
+.adm-spc-pop__val{font-family:var(--mono); font-size:11px; color:var(--lime); align-self:flex-end;}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="jd-grad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#C7FF2B"/><stop offset="100%" stop-color="#6AFF6A"/></linearGradient>
+    <symbol id="jd-chev" viewBox="0 0 20 20"><path d="M2.2 1.6h8.4l5.2 8.4-5.2 8.4H2.2L7.4 10 2.2 1.6z" fill="url(#jd-grad)"/></symbol>
+  </defs>
+</svg>
+<div class="grain" aria-hidden="true"></div>
+<div class="armature" aria-hidden="true"><i></i></div>
+
+<header class="topbar" id="topbar">
+  <div class="shell">
+    <a class="topbar__logo" href="#capa" aria-label="jessicadev"><img src="logo.png" width="640" height="216" alt="jessicadev" fetchpriority="high"></a>
+    <div class="topbar__meta">
+      <span class="topbar__ref">Proposta comercial</span>
+      <a class="btn btn--secondary btn--sm" href="#contato"><span class="btn__face"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.4 2.6c.4 1.1.9 2.1 1.7 3L4.8 6.9c.8 1.7 2.2 3.1 3.9 3.9l1.3-1.3c.9.8 1.9 1.3 3 1.7v1.8c0 .5-.4.9-.9.8-5.3-.6-9.4-4.7-10-10-.1-.5.3-.9.8-.9h1.5z" fill="currentColor"/></svg> Falar no WhatsApp</span></a>
+    </div>
+  </div>
+</header>
+
+<section class="cover" id="capa">
+  <div class="cover__grid" aria-hidden="true"></div>
+  <div class="cover__ambient" aria-hidden="true"></div>
+  <div class="cover__contact" aria-hidden="true"></div>
+  <div class="cover__photo rv d5" aria-hidden="true"><img src="laptop.jpg" srcset="laptop-900.jpg 900w, laptop.jpg 1536w" sizes="(max-width:980px) 100vw, 57vw" width="1536" height="1024" alt="" fetchpriority="high" decoding="async"></div>
+  <div class="cover__body"><div class="shell">
+    <div class="cover__type">
+      <div class="label label--tick cover__eyebrow rv d1">Proposta</div>
+      <h1 class="rv d2"><span class="grad">Comercial</span></h1>
+      <p class="cover__sub rv d3">Soluções digitais para o seu negócio.</p>
+      <div class="cover__rule rv d3" aria-hidden="true"></div>
+      <div class="services rv d4"><span>Desenvolvimento</span><span>Design</span><span>Automação</span><span>Resultados</span></div>
+    </div>
+    <dl class="colophon rv d6">
+      <div><dt>Preparado para</dt><dd>[Nome do consultório / escritório]</dd></div>
+      <div><dt>Preparado por</dt><dd>jessicadev — Jéssica Lopes</dd></div>
+      <div><dt>Validade</dt><dd>7 dias a partir do envio</dd></div>
+    </dl>
+  </div></div>
+</section>
+
+<main>
+
+<section class="section" id="sobre"><div class="shell"><div class="section__inner">
+  <aside class="rail" aria-hidden="true"><div class="rail__num">01</div><div class="rail__label">Sobre</div></aside>
+  <div><h2 class="headline rv">Quem constrói e quem vende, <span class="grad">na mesma pessoa</span></h2>
+    <div class="about">
+      <div class="rv">
+        <p>A jessicadev nasceu do encontro entre <strong>desenvolvimento, marketing e vendas</strong> — não é uma agência com departamentos, é uma especialista que entende o ciclo inteiro: da estrutura técnica do site até a conversa que fecha o cliente no fim da linha.</p>
+        <p>Isso muda o resultado: cada site é construído já pensando em <strong>como ele vai vender</strong>. Stack atual de mercado, aplicada direto no problema real do seu consultório ou escritório.</p>
+      </div>
+      <div class="spec rv">
+        <div class="spec__row"><span class="spec__k">Stack de desenvolvimento</span><i class="spec__fill"></i><span class="spec__v">React · Vercel</span></div>
+        <div class="spec__row"><span class="spec__k">Atendimento automatizado</span><i class="spec__fill"></i><span class="spec__v">WhatsApp Business API</span></div>
+        <div class="spec__row"><span class="spec__k">Prazo médio de entrega</span><i class="spec__fill"></i><span class="spec__v">10–15 dias úteis</span></div>
+        <div class="spec__row"><span class="spec__k">Suporte pós-entrega</span><i class="spec__fill"></i><span class="spec__v is-accent">Incluso</span></div>
+      </div>
+    </div>
+  </div>
+</div></div></section>
+
+<section class="section" id="diagnostico"><div class="shell"><div class="section__inner">
+  <aside class="rail" aria-hidden="true"><div class="rail__num">02</div><div class="rail__label">Diagnóstico</div></aside>
+  <div><h2 class="headline rv">O que normalmente está custando pacientes e clientes hoje</h2>
+    <div class="diag">
+      <article class="diag__item rv"><span class="diag__n">01</span><h3 class="diag__t"><svg class="mark" aria-hidden="true"><use href="#jd-chev"/></svg>Site desatualizado ou genérico</h3><p class="diag__d">Feito em construtor pronto, sem transmitir autoridade — quem pesquisa antes de agendar não sente confiança.</p></article>
+      <article class="diag__item rv"><span class="diag__n">02</span><h3 class="diag__t"><svg class="mark" aria-hidden="true"><use href="#jd-chev"/></svg>Resposta lenta no WhatsApp</h3><p class="diag__d">Primeiro contato depende de alguém disponível pra responder — o lead esfria em minutos e vai pro concorrente.</p></article>
+      <article class="diag__item rv"><span class="diag__n">03</span><h3 class="diag__t"><svg class="mark" aria-hidden="true"><use href="#jd-chev"/></svg>Zero automação de agendamento</h3><p class="diag__d">Cada marcação exige conversa manual do início ao fim, mesmo pras perguntas mais repetitivas.</p></article>
+      <article class="diag__item rv"><span class="diag__n">04</span><h3 class="diag__t"><svg class="mark" aria-hidden="true"><use href="#jd-chev"/></svg>Dependência só da rede social</h3><p class="diag__d">Sem site próprio, todo o tráfego de pesquisa (Google, indicação) não tem pra onde converter.</p></article>
+    </div>
+  </div>
+</div></div></section>
+
+<section class="section" id="solucao"><div class="shell"><div class="section__inner">
+  <aside class="rail" aria-hidden="true"><div class="rail__num">03</div><div class="rail__label">A solução</div></aside>
+  <div><h2 class="headline rv">Site + <span class="grad">Atendimento que Responde Sozinho</span></h2>
+    <p class="deck rv">Um pacote único: presença digital profissional e captação automatizada trabalhando juntas.</p>
+    <div class="solution rv"><div class="scope">
+      <div class="scope__item"><div class="scope__head"><span class="scope__n">01</span><h3 class="scope__t">Site institucional (3–5 páginas)</h3></div><p class="scope__d">Home, Especialidades, Depoimentos, Contato, responsivo e rápido.</p></div>
+      <div class="scope__item"><div class="scope__head"><span class="scope__n">02</span><h3 class="scope__t">Captação de lead direto pro WhatsApp</h3></div><p class="scope__d">Formulário e botões do site entregam o contato qualificado no seu WhatsApp Business.</p></div>
+      <div class="scope__item"><div class="scope__head"><span class="scope__n">03</span><h3 class="scope__t">Resposta automática de primeiro contato</h3></div><p class="scope__d">Confirmação e próximos passos em segundos, mesmo fora do horário.</p></div>
+      <div class="scope__item"><div class="scope__head"><span class="scope__n">04</span><h3 class="scope__t">Deploy e domínio configurados</h3></div><p class="scope__d">No ar, testado e pronto pra usar.</p></div>
+    </div></div>
+  </div>
+</div></div></section>
+
+<section class="section" id="processo"><div class="shell"><div class="section__inner">
+  <aside class="rail" aria-hidden="true"><div class="rail__num">04</div><div class="rail__label">Como funciona</div></aside>
+  <div><h2 class="headline rv">Do diagnóstico ao site no ar</h2>
+    <div class="process">
+      <article class="step rv"><div class="step__n">01</div><h3 class="step__t">Diagnóstico</h3><p class="step__d">Conversa de 30–40min pra entender seu negócio, seu público e como vocês atendem hoje.</p></article>
+      <article class="step rv"><div class="step__n">02</div><h3 class="step__t">Design</h3><p class="step__d">Protótipo visual alinhado à identidade do consultório/escritório — aprovação antes do código.</p></article>
+      <article class="step rv"><div class="step__n">03</div><h3 class="step__t">Desenvolvimento</h3><p class="step__d">Construção do site com stack atual de mercado, pensando em conversão desde a estrutura.</p></article>
+      <article class="step rv"><div class="step__n">04</div><h3 class="step__t">Integração WhatsApp</h3><p class="step__d">Conexão com a API oficial e configuração do fluxo de primeira resposta/agendamento.</p></article>
+      <article class="step rv"><div class="step__n">05</div><h3 class="step__t">Entrega</h3><p class="step__d">Site no ar, teste completo e suporte incluso nos primeiros 15 dias.</p></article>
+    </div>
+  </div>
+</div></div></section>
+
+<section class="section" id="investimento"><div class="shell"><div class="section__inner">
+  <aside class="rail" aria-hidden="true"><div class="rail__num">05</div><div class="rail__label">Investimento</div></aside>
+  <div><h2 class="headline rv">Três formas de começar</h2>
+    <p class="deck rv">Faixas de referência — o valor final é ajustado depois de entender seu escopo real na conversa de diagnóstico.</p>
+    <div class="plans">
+      <article class="plan rv" data-plan="0">
+        <h3 class="plan__name">Essencial</h3>
+        <div class="plan__price"><span class="plan__cur">R$</span><span class="plan__val">2.800</span></div>
+        <ul class="plan__list">
+          <li><svg class="mark" aria-hidden="true"><use href="#jd-chev"/></svg><span>Site institucional (até 3 páginas)</span></li>
+          <li><svg class="mark" aria-hidden="true"><use href="#jd-chev"/></svg><span>Design responsivo</span></li>
+          <li><svg class="mark" aria-hidden="true"><use href="#jd-chev"/></svg><span>Formulário de contato</span></li>
+          <li><svg class="mark" aria-hidden="true"><use href="#jd-chev"/></svg><span>Deploy + domínio configurado</span></li>
+        </ul>
+        <a class="btn btn--outline" href="#contato"><span class="btn__face">Saiba mais <svg class="arrow" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      </article>
+      <article class="plan plan--featured rv" data-plan="1" data-destaque="true">
+        <span class="plan__tag">Mais escolhido</span>
+        <h3 class="plan__name">Recomendado</h3>
+        <div class="plan__price"><span class="plan__cur">R$</span><span class="plan__val">4.500</span></div>
+        <ul class="plan__list">
+          <li><svg class="mark" aria-hidden="true"><use href="#jd-chev"/></svg><span>Site institucional (até 5 páginas)</span></li>
+          <li><svg class="mark" aria-hidden="true"><use href="#jd-chev"/></svg><span>Depoimentos e prova social</span></li>
+          <li><svg class="mark" aria-hidden="true"><use href="#jd-chev"/></svg><span>Integração WhatsApp Business API</span></li>
+          <li><svg class="mark" aria-hidden="true"><use href="#jd-chev"/></svg><span>Resposta automática de 1º contato</span></li>
+          <li><svg class="mark" aria-hidden="true"><use href="#jd-chev"/></svg><span>30 dias de suporte pós-entrega</span></li>
+        </ul>
+        <a class="btn btn--primary" href="#contato"><span class="btn__face">Começar agora <svg class="arrow" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      </article>
+      <article class="plan rv" data-plan="2">
+        <h3 class="plan__name">Premium</h3>
+        <div class="plan__price"><span class="plan__cur">R$</span><span class="plan__val">7.900</span></div>
+        <ul class="plan__list">
+          <li><svg class="mark" aria-hidden="true"><use href="#jd-chev"/></svg><span>Tudo do Recomendado</span></li>
+          <li><svg class="mark" aria-hidden="true"><use href="#jd-chev"/></svg><span>Agente de IA de triagem e agendamento inteligente</span></li>
+          <li><svg class="mark" aria-hidden="true"><use href="#jd-chev"/></svg><span>3 meses de manutenção inclusos</span></li>
+          <li><svg class="mark" aria-hidden="true"><use href="#jd-chev"/></svg><span>Prioridade de atendimento</span></li>
+        </ul>
+        <a class="btn btn--outline" href="#contato"><span class="btn__face">Saiba mais <svg class="arrow" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      </article>
+    </div>
+    <div class="roi rv">
+      <div><div class="roi__fig">&lt; 60 dias</div><div class="roi__cap">Retorno estimado</div></div>
+      <p class="roi__txt">No plano Recomendado, 1 paciente ou cliente novo por mês — que hoje se perde pela demora no WhatsApp — já paga o investimento, considerando um ticket médio de R$300 a R$800. Todo contato depois disso é retorno direto.</p>
+    </div>
+  </div>
+</div></div></section>
+
+<section class="section" id="condicoes"><div class="shell"><div class="section__inner">
+  <aside class="rail" aria-hidden="true"><div class="rail__num">06</div><div class="rail__label">Condições</div></aside>
+  <div><h2 class="headline rv">Garantia e validade</h2>
+    <div class="terms">
+      <div class="term rv"><div class="term__k">01 / Garantia</div><h3 class="term__t">Garantia de ajuste</h3><p class="term__d">15 dias de ajustes inclusos após a entrega — qualquer ponto fora do combinado é corrigido sem custo adicional.</p></div>
+      <div class="term rv"><div class="term__k">02 / Validade</div><h3 class="term__t">Validade da proposta</h3><p class="term__d">Esta proposta é válida por 7 dias corridos a partir da data de envio. Valores sujeitos a reajuste depois desse prazo.</p></div>
+    </div>
+  </div>
+</div></div></section>
+
+<section class="cta" id="contato">
+  <div class="cta__ambient" aria-hidden="true"></div>
+  <div class="shell">
+    <img class="cta__icon rv" src="icon.png" width="512" height="512" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <div class="label label--tick cta__label rv" style="margin-top:26px;">Próximo passo</div>
+    <h2 class="rv" style="margin-top:18px;">Vamos conversar sobre o seu <span class="grad">consultório ou escritório?</span></h2>
+    <p class="cta__sub rv">Uma chamada rápida de diagnóstico já mostra exatamente o que faz sentido pro seu caso — sem compromisso.</p>
+    <div class="cta__actions rv">
+      <a class="btn btn--secondary" href="#"><span class="btn__face"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.4 2.6c.4 1.1.9 2.1 1.7 3L4.8 6.9c.8 1.7 2.2 3.1 3.9 3.9l1.3-1.3c.9.8 1.9 1.3 3 1.7v1.8c0 .5-.4.9-.9.8-5.3-.6-9.4-4.7-10-10-.1-.5.3-.9.8-.9h1.5z" fill="currentColor"/></svg> Falar no WhatsApp</span></a>
+      <a class="btn btn--tertiary" href="#"><span class="btn__face">Ver projetos <svg class="arrow" width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9.5M8.5 3.5 13 8l-4.5 4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer"><div class="shell"><div class="footer__left"><img class="footer__icon" src="icon.png" width="512" height="512" alt="" loading="lazy" decoding="async"><span class="footer__domain">jessicadev.com</span></div><span class="footer__tag">Juntos para grandes resultados</span></div></footer>
+<div class="footer__bar" aria-hidden="true"></div>
+
+<script>
+(function(){
+  var bar = document.getElementById('topbar');
+  var onScroll = function(){ if (bar) bar.classList.toggle('is-stuck', window.scrollY > 24); };
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  var coverItems = document.querySelectorAll('.cover .rv');
+  coverItems.forEach(function(el){
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add('is-in'); }); });
+  });
+
+  var items = document.querySelectorAll('.section .rv, main .rv');
+  if (!('IntersectionObserver' in window)) { items.forEach(function(el){ el.classList.add('is-in'); }); return; }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting){
+        var sibs = Array.prototype.slice.call(e.target.parentNode.children).filter(function(n){ return n.classList.contains('rv'); });
+        e.target.style.transitionDelay = Math.min(sibs.indexOf(e.target), 5) * 70 + 'ms';
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      }
+    });
+  }, {rootMargin:'0px 0px -8% 0px', threshold:.12});
+  items.forEach(function(el){ io.observe(el); });
+})();
+</script>
+<script src="admin.js" defer></script>
+
+</body>
+</html>
