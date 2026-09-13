@@ -120,59 +120,30 @@
     });
   }
 
-  /* ═══ ESPAÇAMENTO — seções (padding vertical) e grids (gap entre itens) ═══ */
-  function enableSpacingControls(){
-    // seções: um controle de espaçamento vertical ao lado das setas de mover
-    document.querySelectorAll('main > section.section, section.cta').forEach(function(sec){
-      attachSpacingPopover(sec, sec, {
-        label: 'Espaçamento da seção',
-        prop: 'paddingBlock',
-        min: 32, max: 220, step: 4,
-        anchorClass: 'adm-section-ctrl',
-        buttonTitle: 'Ajustar espaçamento vertical'
-      });
-    });
-    // grids: espaço entre os itens
-    var grids = [
-      { sel: '.plans', label: 'Espaço entre os planos' },
-      { sel: '.diag', label: 'Espaço entre os itens de diagnóstico' },
-      { sel: '.scope', label: 'Espaço entre os itens de escopo' },
-      { sel: '.process', label: 'Espaço entre as etapas' }
-    ];
-    grids.forEach(function(g){
-      var el = document.querySelector(g.sel);
-      if (!el) return;
-      attachSpacingPopover(el, el, {
-        label: g.label,
-        prop: 'gap',
-        min: 0, max: 64, step: 2,
-        anchorClass: null,
-        buttonTitle: 'Ajustar espaço entre itens',
-        standalone: true
-      });
-    });
-  }
-
-  function attachSpacingPopover(anchorEl, targetEl, opts){
+  /* ═══ ESPAÇAMENTO — seções, capa, grids (gap) e padding interno dos itens.
+     Um popover genérico com slider; cada alvo diz "de onde eu leio" e
+     "onde eu aplico" (pode ser 1 elemento ou vários, ex.: todas as células
+     da metadata de uma vez). ═══ */
+  function makeSpacingPopover(opts){
+    // opts: { label, min, max, step, get(), set(px) }
     var btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'adm-spc-btn adm-ui';
-    btn.title = opts.buttonTitle;
+    btn.title = opts.label;
     btn.textContent = '↕';
 
     var pop = document.createElement('div');
     pop.className = 'adm-spc-pop adm-ui';
-    var curVal = parseFloat(getComputedStyle(targetEl)[opts.prop]) || opts.min;
+    var curVal = Math.round(opts.get());
     pop.innerHTML = '<span class="adm-spc-pop__label">' + opts.label + '</span>'
-      + '<input type="range" min="' + opts.min + '" max="' + opts.max + '" step="' + opts.step + '" value="' + Math.round(curVal) + '">'
-      + '<span class="adm-spc-pop__val">' + Math.round(curVal) + 'px</span>';
+      + '<input type="range" min="' + opts.min + '" max="' + opts.max + '" step="' + opts.step + '" value="' + curVal + '">'
+      + '<span class="adm-spc-pop__val">' + curVal + 'px</span>';
     var input = pop.querySelector('input');
     var valLabel = pop.querySelector('.adm-spc-pop__val');
     input.addEventListener('input', function(){
-      targetEl.style[opts.prop] = input.value + 'px';
+      opts.set(Number(input.value));
       valLabel.textContent = input.value + 'px';
     });
-
     btn.addEventListener('click', function(e){
       e.stopPropagation();
       document.querySelectorAll('.adm-spc-pop.open').forEach(function(p){ if (p !== pop) p.classList.remove('open'); });
@@ -181,20 +152,147 @@
     document.addEventListener('click', function(e){
       if (!pop.contains(e.target) && e.target !== btn) pop.classList.remove('open');
     });
+    return { btn: btn, pop: pop };
+  }
 
-    if (opts.standalone){
-      var holder = document.createElement('div');
-      holder.className = 'adm-spc-holder adm-ui';
-      holder.appendChild(btn);
-      holder.appendChild(pop);
-      anchorEl.parentNode.insertBefore(holder, anchorEl);
-    } else {
-      var group = anchorEl.querySelector(':scope > .' + opts.anchorClass);
-      if (group){
-        group.appendChild(btn);
-        group.appendChild(pop); // pop fica ancorado no grupinho pequeno (26px), não na seção inteira
-      }
+  function mountInGroup(hostEl, groupClass, pieces){
+    var group = hostEl.querySelector(':scope > .' + groupClass);
+    if (!group) return;
+    group.appendChild(pieces.btn);
+    group.appendChild(pieces.pop); // pop ancorado no grupinho pequeno, não no bloco inteiro
+  }
+  function mountStandalone(beforeEl, pieces){
+    var holder = document.createElement('div');
+    holder.className = 'adm-spc-holder adm-ui';
+    holder.appendChild(pieces.btn);
+    holder.appendChild(pieces.pop);
+    beforeEl.parentNode.insertBefore(holder, beforeEl);
+  }
+
+  function setPaddingBlock(el, px){ el.style.paddingBlock = px + 'px'; }
+  function getPaddingBlockAvg(el){
+    var cs = getComputedStyle(el);
+    return (parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom)) / 2;
+  }
+  function setPaddingAll(els, px){ els.forEach(function(el){ el.style.padding = px + 'px'; }); }
+  function setPaddingBlockAll(els, px){ els.forEach(function(el){ el.style.paddingBlock = px + 'px'; }); }
+  function setPaddingTopAll(els, px){ els.forEach(function(el){ el.style.paddingTop = px + 'px'; }); }
+
+  function enableSpacingControls(){
+    // capa: espaçamento no topo
+    var cover = document.querySelector('.cover');
+    if (cover){
+      var p = makeSpacingPopover({
+        label: 'Espaçamento no topo da capa',
+        min: 60, max: 220, step: 4,
+        get: function(){ return parseFloat(getComputedStyle(cover).paddingTop); },
+        set: function(px){ cover.style.paddingTop = px + 'px'; }
+      });
+      mountStandalone(cover, p);
     }
+
+    // metadata da capa (Preparado para / por / Validade): padding interno das células
+    var colophonCells = document.querySelectorAll('.colophon > div');
+    if (colophonCells.length){
+      var pc = makeSpacingPopover({
+        label: 'Respiro da metadata (Preparado para/por/Validade)',
+        min: 8, max: 48, step: 2,
+        get: function(){ return getPaddingBlockAvg(colophonCells[0]); },
+        set: function(px){ setPaddingBlockAll(Array.prototype.slice.call(colophonCells), px); }
+      });
+      mountStandalone(document.querySelector('.colophon'), pc);
+    }
+
+    // seções: espaçamento vertical, controle ao lado das setas de mover
+    document.querySelectorAll('main > section.section, section.cta').forEach(function(sec){
+      var pieces = makeSpacingPopover({
+        label: 'Espaçamento vertical da seção',
+        min: 32, max: 220, step: 4,
+        get: function(){ return getPaddingBlockAvg(sec); },
+        set: function(px){ setPaddingBlock(sec, px); }
+      });
+      mountInGroup(sec, 'adm-section-ctrl', pieces);
+    });
+
+    // grids: espaço ENTRE os itens + padding INTERNO de cada item, os dois controles
+    var gridDefs = [
+      { sel: '.plans', itemSel: '.plan', label: 'planos', padType: 'all' },
+      { sel: '.diag', itemSel: '.diag__item', label: 'itens de diagnóstico', padType: 'block' },
+      { sel: '.scope', itemSel: '.scope__item', label: 'itens de escopo', padType: 'block' },
+      { sel: '.process', itemSel: '.step', label: 'etapas do processo', padType: 'top' }
+    ];
+    gridDefs.forEach(function(g){
+      var el = document.querySelector(g.sel);
+      if (!el) return;
+      var gapPieces = makeSpacingPopover({
+        label: 'Espaço entre os ' + g.label,
+        min: 0, max: 64, step: 2,
+        get: function(){ return parseFloat(getComputedStyle(el).gap) || 0; },
+        set: function(px){ el.style.gap = px + 'px'; }
+      });
+      mountStandalone(el, gapPieces);
+
+      var items = Array.prototype.slice.call(el.querySelectorAll(':scope > ' + g.itemSel));
+      if (!items.length) return;
+      var padPieces = makeSpacingPopover({
+        label: 'Espaço interno dos ' + g.label,
+        min: 8, max: 64, step: 2,
+        get: function(){
+          var cs = getComputedStyle(items[0]);
+          return g.padType === 'top' ? parseFloat(cs.paddingTop) : getPaddingBlockAvg(items[0]);
+        },
+        set: function(px){
+          if (g.padType === 'all') setPaddingAll(items, px);
+          else if (g.padType === 'top') setPaddingTopAll(items, px);
+          else setPaddingBlockAll(items, px);
+        }
+      });
+      mountStandalone(el, padPieces);
+    });
+  }
+
+  /* ═══ LINKS — todo botão (<a class="btn">) ganha um controle pra definir
+     pra onde ele aponta. Editar o texto (contenteditable) nunca muda o href;
+     é por isso que "Falar no WhatsApp" e "Ver projetos" ficavam mortos. ═══ */
+  function normalizeUrl(raw){
+    var v = raw.trim();
+    if (!v) return '';
+    if (/^(#|mailto:|tel:|https?:\/\/)/i.test(v)) return v;
+    if (/^\+?[\d\s().-]{8,}$/.test(v)) { // só números/formatação de telefone -> vira link do WhatsApp
+      var digits = v.replace(/\D/g, '');
+      return 'https://wa.me/' + digits;
+    }
+    return 'https://' + v;
+  }
+
+  function enableLinkEditing(root){
+    var links = root.querySelectorAll('a.btn');
+    links.forEach(function(a){
+      if (a.querySelector(':scope > .adm-link-ctrl')) return;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'adm-link-ctrl adm-ui';
+      btn.title = 'Definir link deste botão';
+      btn.textContent = '🔗';
+      a.appendChild(btn);
+      btn.addEventListener('click', function(e){
+        e.preventDefault(); e.stopPropagation();
+        var current = a.getAttribute('href') || '';
+        var raw = window.prompt('Link deste botão (número de WhatsApp com DDD, ou uma URL completa):', current === '#' ? '' : current);
+        if (raw === null) return; // cancelou
+        var url = normalizeUrl(raw);
+        if (!url){ showAdmToast('Link vazio — mantido como estava.', true); return; }
+        a.setAttribute('href', url);
+        if (/^https?:\/\//i.test(url)) { a.setAttribute('target', '_blank'); a.setAttribute('rel', 'noopener'); }
+        else { a.removeAttribute('target'); a.removeAttribute('rel'); }
+        showAdmToast('Link definido: ' + url);
+      });
+      // clique no botão em si (fora do 🔗) não deve navegar enquanto edita
+      a.addEventListener('click', function(e){
+        if (e.target === btn) return;
+        e.preventDefault();
+      });
+    });
   }
 
   /* ═══ MOVER / ADICIONAR / REMOVER ITENS ═══ */
@@ -391,6 +489,7 @@
     document.body.classList.add('adm-on');
     enableTextEditing(document.body);
     enableImageEditing(document.body);
+    enableLinkEditing(document.body);
     makeSortableList('.diag', '.diag__item', '.diag__n', true, true);
     makeSortableList('.scope', '.scope__item', '.scope__n', true, true);
     makeSortableList('.process', '.step', '.step__n', true, true);
