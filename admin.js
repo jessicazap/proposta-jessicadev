@@ -464,6 +464,58 @@
     }
   }
 
+  /* ═══ PRÉVIA MOBILE — abre um "telefone" com a própria /admin dentro de um
+     iframe (viewport de verdade, então os @media reais entram em ação —
+     não é só encolher a janela). Dá pra editar direto ali dentro; ela tem
+     sua própria barra "Salvar e publicar" (é uma segunda sessão do painel,
+     mostra a última versão PUBLICADA — se você tiver edição não salva na
+     tela principal, salve antes de abrir a prévia pra ela aparecer lá). ═══ */
+  var PHONE_PRESETS = [
+    { label: 'iPhone', w: 390, h: 780 },
+    { label: 'Android', w: 412, h: 820 },
+    { label: 'Mini', w: 360, h: 740 }
+  ];
+  var phonePresetIdx = 0;
+
+  function buildMobilePreview(){
+    var overlay = document.createElement('div');
+    overlay.className = 'adm-preview-overlay adm-ui';
+    overlay.innerHTML = ''
+      + '<div class="adm-preview-bar">'
+        + '<span class="adm-preview-bar__label">Prévia mobile — edição funciona normalmente aqui dentro</span>'
+        + '<div class="adm-preview-bar__actions">'
+          + '<button type="button" class="btn btn--tertiary btn--sm" id="adm-preview-size"><span class="btn__face">iPhone</span></button>'
+          + '<button type="button" class="btn btn--tertiary btn--sm" id="adm-preview-reload"><span class="btn__face">↻ Atualizar</span></button>'
+          + '<button type="button" class="btn btn--primary btn--sm" id="adm-preview-close"><span class="btn__face">Fechar</span></button>'
+        + '</div>'
+      + '</div>'
+      + '<div class="adm-preview-frame-wrap">'
+        + '<div class="adm-preview-phone" id="adm-preview-phone"><div class="adm-preview-notch"></div><iframe id="adm-preview-iframe" title="Prévia mobile"></iframe></div>'
+      + '</div>';
+    document.body.appendChild(overlay);
+
+    function applySize(){
+      var p = PHONE_PRESETS[phonePresetIdx];
+      var phone = document.getElementById('adm-preview-phone');
+      phone.style.width = p.w + 'px';
+      phone.style.height = p.h + 'px';
+      document.getElementById('adm-preview-size').querySelector('.btn__face').textContent = p.label;
+    }
+    function reload(){
+      document.getElementById('adm-preview-iframe').src = '/admin?_pv=' + Date.now();
+    }
+    applySize();
+    reload();
+
+    document.getElementById('adm-preview-size').addEventListener('click', function(){
+      phonePresetIdx = (phonePresetIdx + 1) % PHONE_PRESETS.length;
+      applySize();
+    });
+    document.getElementById('adm-preview-reload').addEventListener('click', reload);
+    document.getElementById('adm-preview-close').addEventListener('click', function(){ overlay.remove(); });
+    overlay.addEventListener('click', function(e){ if (e.target === overlay) overlay.remove(); });
+  }
+
   function injectAdminBar(){
     var bar = document.createElement('div');
     bar.className = 'adm-bar adm-ui';
@@ -471,6 +523,7 @@
       + '<div class="adm-bar__group"><span class="adm-bar__label">● Área de edição</span><span class="adm-bar__hint">texto: clique e edite · imagem/seção: passe o mouse pros controles · ↕ ajusta espaçamento</span></div>'
       + '<div class="adm-bar__group">'
         + '<div class="adm-mini"><span>Texto</span><button type="button" id="adm-txt-dn">A−</button><button type="button" id="adm-txt-up">A+</button></div>'
+        + '<button type="button" class="btn btn--tertiary" id="adm-preview-open"><span class="btn__face">📱 Ver mobile</span></button>'
         + '<button type="button" class="btn btn--tertiary" id="adm-exit"><span class="btn__face">Sair</span></button>'
         + '<button type="button" class="btn btn--primary" id="adm-save"><span class="btn__face">Salvar e publicar</span></button>'
       + '</div>';
@@ -481,6 +534,7 @@
 
     document.getElementById('adm-txt-dn').addEventListener('click', function(){ resizeFocused(-1); });
     document.getElementById('adm-txt-up').addEventListener('click', function(){ resizeFocused(1); });
+    document.getElementById('adm-preview-open').addEventListener('click', buildMobilePreview);
     document.getElementById('adm-exit').addEventListener('click', function(){ location.href = '/'; });
     document.getElementById('adm-save').addEventListener('click', saveAndPublish);
   }
