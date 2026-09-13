@@ -210,11 +210,21 @@ ul{margin:0; padding:0; list-style:none;}
 .headline .grad{background-image:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;}
 .deck{margin-top:18px; color:var(--ink-2); font-weight:300; font-size:16.5px; max-width:56ch;}
 
-.profile{display:flex; align-items:center; gap:16px; margin-top:clamp(22px,3vw,32px);}
-.profile__photo{width:84px; height:84px; flex:none; object-fit:cover; clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px); border:1px solid var(--line-2);}
-.profile__meta{display:flex; flex-direction:column; gap:3px;}
-.profile__name{font-size:15px; font-weight:600; color:var(--ink); letter-spacing:-.01em;}
-.profile__role{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3);}
+/* foto grande da fundadora: desktop ao lado do texto, mobile centralizada em cima,
+   surgindo com o mesmo efeito .rv usado no resto do site */
+.about-wrap{display:grid; grid-template-columns:minmax(0,290px) minmax(0,1fr); gap:clamp(32px,5vw,64px); margin-top:clamp(30px,4vw,46px); align-items:start;}
+@media (max-width:900px){ .about-wrap{grid-template-columns:1fr; justify-items:center; text-align:center;} }
+.about-photo{position:relative; width:100%; max-width:290px;}
+@media (max-width:900px){ .about-photo{max-width:260px;} }
+.about-photo__img{width:100%; aspect-ratio:4/5; object-fit:cover; display:block; clip-path:polygon(20px 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%,0 20px); border:1px solid var(--line-2); background:var(--surface);}
+.about-photo::before{content:""; position:absolute; z-index:2; top:-1px; right:-1px; width:36px; height:36px; border-top:1.5px solid var(--border-brand-strong); border-right:1.5px solid var(--border-brand-strong); pointer-events:none;}
+.about-photo::after{content:""; position:absolute; z-index:-1; inset:14px -14px -14px 14px; background:radial-gradient(120% 100% at 30% 20%, rgba(106,255,106,.1), transparent 60%); pointer-events:none;}
+.about-photo__tag{margin-top:16px; display:flex; flex-direction:column; gap:3px;}
+@media (max-width:900px){ .about-photo__tag{align-items:center;} }
+.about-photo__tag strong{font-size:15px; font-weight:600; color:var(--ink); letter-spacing:-.01em;}
+.about-photo__tag span{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3);}
+.about-wrap .about{margin-top:0;}
+@media (max-width:900px){ .about-wrap .about{text-align:left;} }
 
 .about{display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr); gap:clamp(32px,5vw,72px); margin-top:clamp(30px,4vw,46px); align-items:start;}
 @media (max-width:900px){ .about{grid-template-columns:1fr;} }
@@ -475,20 +485,22 @@ a.btn:hover .adm-link-ctrl, .adm-link-ctrl:focus-visible{opacity:1;}
 <section class="section" id="sobre"><div class="shell"><div class="section__inner">
   <aside class="rail" aria-hidden="true"><div class="rail__num">01</div><div class="rail__label">Sobre</div></aside>
   <div><h2 class="headline rv">Quem constrói e quem vende, <span class="grad">na mesma pessoa</span></h2>
-    <div class="profile rv">
-      <img class="profile__photo" src="profile-placeholder.jpg" width="640" height="640" alt="Jéssica Lopes">
-      <div class="profile__meta"><strong class="profile__name">Jéssica Lopes</strong><span class="profile__role">Fundadora — jessicadev</span></div>
-    </div>
-    <div class="about">
-      <div class="rv">
-        <p>A jessicadev nasceu do encontro entre <strong>desenvolvimento, marketing e vendas</strong> — não é uma agência com departamentos, é uma especialista que entende o ciclo inteiro: da estrutura técnica do site até a conversa que fecha o cliente no fim da linha.</p>
-        <p>Isso muda o resultado: cada site é construído já pensando em <strong>como ele vai vender</strong>. Stack atual de mercado, aplicada direto no problema real do seu consultório ou escritório.</p>
+    <div class="about-wrap">
+      <div class="about-photo rv">
+        <img class="about-photo__img" src="profile-placeholder.jpg" width="900" height="1125" alt="Jéssica Lopes — fundadora da jessicadev">
+        <div class="about-photo__tag"><strong>Jéssica Lopes</strong><span>Fundadora — jessicadev</span></div>
       </div>
-      <div class="spec rv">
-        <div class="spec__row"><span class="spec__k">Stack de desenvolvimento</span><i class="spec__fill"></i><span class="spec__v">React · Vercel</span></div>
-        <div class="spec__row"><span class="spec__k">Atendimento automatizado</span><i class="spec__fill"></i><span class="spec__v">WhatsApp Business API</span></div>
-        <div class="spec__row"><span class="spec__k">Prazo médio de entrega</span><i class="spec__fill"></i><span class="spec__v">10–15 dias úteis</span></div>
-        <div class="spec__row"><span class="spec__k">Suporte pós-entrega</span><i class="spec__fill"></i><span class="spec__v is-accent">Incluso</span></div>
+      <div class="about">
+        <div class="rv">
+          <p>A jessicadev nasceu do encontro entre <strong>desenvolvimento, marketing e vendas</strong> — não é uma agência com departamentos, é uma especialista que entende o ciclo inteiro: da estrutura técnica do site até a conversa que fecha o cliente no fim da linha.</p>
+          <p>Isso muda o resultado: cada site é construído já pensando em <strong>como ele vai vender</strong>. Stack atual de mercado, aplicada direto no problema real do seu consultório ou escritório.</p>
+        </div>
+        <div class="spec rv">
+          <div class="spec__row"><span class="spec__k">Stack de desenvolvimento</span><i class="spec__fill"></i><span class="spec__v">React · Vercel</span></div>
+          <div class="spec__row"><span class="spec__k">Atendimento automatizado</span><i class="spec__fill"></i><span class="spec__v">WhatsApp Business API</span></div>
+          <div class="spec__row"><span class="spec__k">Prazo médio de entrega</span><i class="spec__fill"></i><span class="spec__v">10–15 dias úteis</span></div>
+          <div class="spec__row"><span class="spec__k">Suporte pós-entrega</span><i class="spec__fill"></i><span class="spec__v is-accent">Incluso</span></div>
+        </div>
       </div>
     </div>
   </div>

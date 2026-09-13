@@ -18,9 +18,12 @@
     try { s = localStorage.getItem(SECRET_KEY); } catch(e){}
     if (!s || forcePrompt){
       s = window.prompt('Senha do painel (a mesma cadastrada em ADMIN_SECRET na Vercel):', '');
-      if (s) { try { localStorage.setItem(SECRET_KEY, s); } catch(e){} }
+      if (s) { s = s.trim(); if (s) { try { localStorage.setItem(SECRET_KEY, s); } catch(e){} } } // trim: espaço colado sem querer é a causa nº1 de "senha incorreta"
     }
-    return s || '';
+    return (s || '').trim();
+  }
+  function forgetSecret(){
+    try { localStorage.removeItem(SECRET_KEY); } catch(e){}
   }
 
   /* ═══ TEXTO ═══ */
@@ -29,11 +32,13 @@
     var kids = Array.prototype.slice.call(el.children);
     return kids.every(function(c){ return isInlineTag(c.tagName); });
   }
+  var LOCKED_LABELS = '.colophon dt'; // rótulos fixos da metadata ("PREPARADO PARA" etc.) — só o valor (dd) é editável, evita editar o rótulo sem querer
   function enableTextEditing(root){
     var candidates = root.querySelectorAll('h1,h2,h3,h4,p,dd,dt,li,span,div');
     candidates.forEach(function(el){
       if (el.closest('.adm-ui')) return;
       if (el.closest('[contenteditable="true"]')) return;
+      if (el.matches && el.matches(LOCKED_LABELS)) return;
       if (!isEditableLeaf(el)) return;
       if (!el.textContent.trim()) return;
       el.setAttribute('contenteditable', 'true');
@@ -448,8 +453,8 @@
         body: JSON.stringify({ html: full })
       });
       if (resp.status === 401){
-        showAdmToast('Senha incorreta. Tente de novo.', true);
-        try { localStorage.removeItem(SECRET_KEY); } catch(e){}
+        forgetSecret();
+        showAdmToast('Senha incorreta (' + secret.length + ' caracteres digitados) — confira maiúsculas/minúsculas e espaço extra. Clique em Salvar de novo pra digitar outra vez.', true);
         return;
       }
       var data = null;
@@ -524,6 +529,7 @@
       + '<div class="adm-bar__group">'
         + '<div class="adm-mini"><span>Texto</span><button type="button" id="adm-txt-dn">A−</button><button type="button" id="adm-txt-up">A+</button></div>'
         + '<button type="button" class="btn btn--tertiary" id="adm-preview-open"><span class="btn__face">📱 Ver mobile</span></button>'
+        + '<button type="button" class="btn btn--tertiary" id="adm-pass" title="Trocar a senha salva neste navegador"><span class="btn__face">🔑</span></button>'
         + '<button type="button" class="btn btn--tertiary" id="adm-exit"><span class="btn__face">Sair</span></button>'
         + '<button type="button" class="btn btn--primary" id="adm-save"><span class="btn__face">Salvar e publicar</span></button>'
       + '</div>';
@@ -535,6 +541,11 @@
     document.getElementById('adm-txt-dn').addEventListener('click', function(){ resizeFocused(-1); });
     document.getElementById('adm-txt-up').addEventListener('click', function(){ resizeFocused(1); });
     document.getElementById('adm-preview-open').addEventListener('click', buildMobilePreview);
+    document.getElementById('adm-pass').addEventListener('click', function(){
+      forgetSecret();
+      var s = getSecret(true);
+      showAdmToast(s ? 'Senha atualizada neste navegador (' + s.length + ' caracteres).' : 'Nenhuma senha salva.');
+    });
     document.getElementById('adm-exit').addEventListener('click', function(){ location.href = '/'; });
     document.getElementById('adm-save').addEventListener('click', saveAndPublish);
   }
