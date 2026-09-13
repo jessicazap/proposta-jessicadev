@@ -93,7 +93,7 @@ ul{margin:0; padding:0; list-style:none;}
 .label--tick::before{content:""; width:26px; height:1px; background:var(--grad); flex:none; opacity:.9;}
 .mark{width:13px; height:13px; flex:none;}
 
-.btn{--btn-y:15px; --btn-px:28px; --cutb:var(--cut); display:inline-flex; align-items:center; justify-content:center; gap:10px; font-family:var(--sans); font-size:14.5px; font-weight:600; letter-spacing:.005em; text-transform:uppercase; padding:var(--btn-y) var(--btn-px); min-height:48px; border:none; cursor:pointer; position:relative; isolation:isolate;
+.btn{--btn-y:15px; --btn-px:28px; --cutb:var(--cut); display:inline-flex; align-items:center; justify-content:center; gap:10px; font-family:var(--sans); font-size:14.5px; font-weight:600; letter-spacing:.005em; text-transform:uppercase; white-space:nowrap; padding:var(--btn-y) var(--btn-px); min-height:48px; border:none; cursor:pointer; position:relative; isolation:isolate;
   clip-path:polygon(var(--cutb) 0, 100% 0, 100% calc(100% - var(--cutb)), calc(100% - var(--cutb)) 100%, 0 100%, 0 var(--cutb));
   transition:transform .32s var(--ease), box-shadow .32s var(--ease), background-color .32s var(--ease), color .32s var(--ease);}
 .btn svg{flex:none; transition:transform .32s var(--ease);}
@@ -135,10 +135,12 @@ ul{margin:0; padding:0; list-style:none;}
 .topbar .shell{display:flex; align-items:center; justify-content:space-between; gap:20px;}
 .topbar__logo{display:inline-flex;}
 .topbar__logo img{height:46px; width:auto; display:block;}
-@media (max-width:520px){ .topbar__logo img{height:32px;} }
+@media (max-width:520px){ .topbar__logo img{height:32px;} .topbar{height:64px;} }
 .topbar__meta{display:flex; align-items:center; gap:26px;}
 .topbar__ref{font-family:var(--mono); font-size:10.5px; letter-spacing:.24em; text-transform:uppercase; color:var(--ink-3); padding-left:26px; border-left:1px solid var(--line-2);}
 @media (max-width:760px){ .topbar__ref{display:none;} }
+@media (max-width:400px){ .topbar .btn--sm{--btn-px:12px; font-size:10px; gap:6px;} }
+@media (max-width:520px){ .btn--sm{min-height:40px;} }
 
 .cover{position:relative; min-height:100svh; display:flex; flex-direction:column; justify-content:flex-end; padding-top:132px; overflow:hidden;}
 .cover__grid{position:absolute; inset:0; z-index:0; pointer-events:none; opacity:.5;
@@ -164,6 +166,7 @@ ul{margin:0; padding:0; list-style:none;}
 .services{display:flex; flex-wrap:wrap; gap:0 clamp(16px,2.4vw,30px); margin-top:20px;}
 .services span{font-family:var(--mono); font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-3); padding-right:clamp(16px,2.4vw,30px); border-right:1px solid var(--line); line-height:1;}
 .services span:last-child{border-right:none; padding-right:0;}
+@media (max-width:640px){ .services span{border-right:none; padding-right:0;} .services{row-gap:8px;} }
 .colophon{position:relative; z-index:3; border-top:1px solid var(--line-2); display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); margin-top:clamp(34px,5vw,60px);}
 .colophon::before{content:""; position:absolute; z-index:4; top:-1px; right:0; width:26px; height:26px; border-top:1.5px solid var(--border-brand-strong); border-right:1.5px solid var(--border-brand-strong); opacity:.7; pointer-events:none;}
 .colophon > div{background:var(--bg); padding:22px 26px 24px 0; padding-left:0;}
@@ -178,6 +181,7 @@ ul{margin:0; padding:0; list-style:none;}
   .cover__contact{display:none;}
   .cover__body{padding-bottom:0;}
 }
+@media (max-width:520px){ .cover{padding-top:84px;} }
 
 .section{position:relative; padding-block:var(--section-y); scroll-margin-top:100px;}
 .section + .section{border-top:1px solid var(--line);}
@@ -296,6 +300,7 @@ ul{margin:0; padding:0; list-style:none;}
 .cta h2 .grad{background-image:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;}
 .cta__sub{margin:20px auto 0; color:var(--ink-2); font-weight:300; max-width:48ch;}
 .cta__actions{margin-top:36px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+@media (max-width:480px){ .cta__actions{flex-direction:column; align-items:stretch;} .cta__actions .btn{width:100%;} }
 .cta .label--tick::after{content:""; width:26px; height:1px; background:var(--grad); opacity:.9;}
 
 .footer{border-top:1px solid var(--line); padding-block:30px 34px;}
